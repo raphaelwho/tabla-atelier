@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/TablaHR/tabla-atelier/issues"
   },
-  "homepage": "https://github.com/TablaHR/tabla-atelier#readme"
+  "homepage": "https://github.com/TablaHR/tabla-atelier#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
