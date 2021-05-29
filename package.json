@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack --mode development --watch",
+    "start": "nodemon server/server.js",
     "test": "jest"
   },
   "repository": {

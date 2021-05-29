@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   constructor() {
-    super(props);
+    super();
   }
 
   render() {
