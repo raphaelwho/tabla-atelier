@@ -4,6 +4,8 @@
   "description": "Atelier project",
   "main": "index.js",
   "scripts": {
+    "react-dev": "webpack --mode development --watch",
+    "start": "nodemon server/server.js",
     "test": "jest"
   },
   "repository": {
@@ -17,7 +19,16 @@
   },
   "homepage": "https://github.com/TablaHR/tabla-atelier#readme",
   "dependencies": {
+    "babel-loader": "^8.2.2",
     "express": "^4.17.1",
-    "jest": "^27.0.2"
+    "jest": "^27.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
   }
 }
