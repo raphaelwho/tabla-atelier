@@ -1,0 +1,11 @@
+.stars {
+  font-size: 100px;
+  position: absolute;
+  color: black;
+}
+
+.starsoverlap {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+}
