@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import Card from './Card.jsx';
+import Box from './Box.jsx';
 // import axios from 'axios';
 export default class Related extends Component {
   constructor(props){
@@ -8,9 +9,13 @@ export default class Related extends Component {
     this.state={
       error: null,
       isLoading : true,
-      items : []
+      items : [],
+      display:'none'
     }
+    this.tan=this.tan.bind(this);
+    this.hide=this.hide.bind(this);
   }
+
   componentDidMount() {
     $.ajax({
       url: 'http://localhost:3000/related',
@@ -24,13 +29,24 @@ export default class Related extends Component {
     })
 
   }
-  //   fetaxios.get(path+WebGLShaderPrecisionFormat.pr)
-  //   fetch(API + DEFAULT_QUERY)
-  //     .then(response => response.json())
-  //     .then(data => this.setState({ hits: data.hits }));
-  // }
+  tan(){
+    console.log(this);
+    this.setState({display:'block'})
+  }
+
+  hide(){
+      this.setState({display:'none'})
+  }
   render() {
     const {error, isLoading, items } = this.state;
+    let cardStyle = {
+      float:'left',
+      width:'20%',
+      height: '300px',
+      borderBlockColor:'black',
+      border:'2px solid',
+      margin: '10px',
+    }
     if (error) {
       return <div>Error: {error} </div> ;
     } else if (isLoading) {
@@ -41,7 +57,13 @@ export default class Related extends Component {
         <h1 style={{color:'gray'}}>RELATED PRODUCTS</h1>
         <div>List of related ID</div>
         {items.map(item =>(
-          <Card id={item}/>
+          <div>
+          <Box display={this.state.display} hide={this.hide} />
+          <div style = {cardStyle} onClick={this.tan}>
+          <Card id={item} />
+          </div>
+
+          </div>
         ))}
       </div>
     )

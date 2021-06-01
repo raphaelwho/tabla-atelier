@@ -46,12 +46,19 @@ export default class Card extends Component {
     } else if (isLoading) {
       return <div>Loading...</div>;
     } else {
+      const imgStyle= {
+        resizeMode: "repeat",
+        width: '100%',
+        height:220,
+
+
+      }
     return (
       <div>
-        <div>${item.category}</div>
+        <img src = {image} style={imgStyle}></img>
+        <div>{item.category}</div>
+        <div>{item.name}</div>
         <div>${item.default_price}</div>
-        <img src = {image}></img>
-        <br></br>
       </div>
     )
     }
