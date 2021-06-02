@@ -12,7 +12,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Sample Stars</h1>
-        <Stars rating={2.846} />
+        <Stars rating={4.25} />
       </div>
     );}
 }
