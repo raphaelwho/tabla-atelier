@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import Stars from './Stars.jsx';
+
+import Stars from './components/shared/Stars.jsx';
+import text, {CText, CTextDemoView} from './components/shared/CText.jsx';
+
 
 class App extends React.Component {
   constructor() {
@@ -9,12 +11,11 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <h1>Sample Stars</h1>
-        <Stars rating={4.25} />
-      </div>
-    );}
+    return (<div>
+      <CTextDemoView />
+      <Stars rating={0.5} />
+    </div>)
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

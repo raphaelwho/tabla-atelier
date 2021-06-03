@@ -1,5 +1,5 @@
 import React from 'react';
-import './Stars.css';
+import './css/Stars.css';
 import $ from 'jquery';
 
 var Stars = function (props) {
