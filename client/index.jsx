@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import text, {CText, CTextDemoView} from './components/shared/text.jsx';
+
+import Stars from './components/shared/Stars.jsx';
+import text, {CText, CTextDemoView} from './components/shared/CText.jsx';
+
 
 class App extends React.Component {
   constructor() {
@@ -8,8 +11,10 @@ class App extends React.Component {
   }
 
   render() {
-    return <h1>Hi</h1>
-
+    return (<div>
+      <CTextDemoView />
+      <Stars rating={0.5} />
+    </div>)
   }
 }
 
