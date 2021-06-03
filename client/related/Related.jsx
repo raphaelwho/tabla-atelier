@@ -19,7 +19,8 @@ export default class Related extends Component {
   componentDidMount() {
     $.ajax({
       url: 'http://localhost:3000/related',
-      method: "GET",
+      data: {id:this.props.id},
+      method: "POST",
       success: (res)=>{
         this.setState({
           isLoading : false,

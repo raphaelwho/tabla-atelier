@@ -1,6 +1,6 @@
 const express = require('express')
 var bodyParser = require('body-parser')
-const Token = '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'
+const Token = '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'
 const app = express()
 const axios = require('axios')
 const port = 3000
@@ -10,12 +10,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./client/dist"));
 
 
-app.get('/related', (req, res) => {
+app.post('/related', (req, res) => {
   let config = {
-  method: 'get',
-  url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/22122/related',
+  method: 'GET',
+  url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id+'/related',
   headers: {
-    'Authorization': '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'
+    'Authorization': Token
   }
   };
   axios(config)
@@ -34,7 +34,7 @@ app.post('/card', (req, res) => {
   method: 'get',
   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id,
   headers: {
-    'Authorization': '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'
+    'Authorization': Token
   }
   };
 
@@ -53,7 +53,7 @@ app.post('/cardimage', (req, res) => {
   method: 'get',
   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id+'/styles',
   headers: {
-    'Authorization': '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'
+    'Authorization': Token
   }
   };
   axios(config)
