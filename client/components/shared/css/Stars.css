@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+.stars {
+  font-family: 'Jua', sans-serif;
+  font-size: 100px;
+  position: absolute;
+  color: black;
+}
+
+.starsoverlap {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+}
