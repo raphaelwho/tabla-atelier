@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Stars from './components/shared/Stars.jsx';
 import ClickableStars from './components/shared/ClickableStars.jsx'
 import text, {CText, CTextDemoView} from './components/shared/CText.jsx';
+import Ratings from './components/ratings/Ratings.jsx';
 
 
 class App extends React.Component {
@@ -13,10 +14,8 @@ class App extends React.Component {
 
   render() {
     return (<div>
-      <CTextDemoView />
-      <Stars rating={0.5} />
-      <ClickableStars />
-    </div>)
+    <Ratings />
+    </div>);
   }
 }
 

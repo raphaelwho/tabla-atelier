@@ -1,0 +1,16 @@
+.reviewtile {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr auto auto auto auto 1fr;
+  grid-template-areas:
+    "stars . . userdate"
+    "title title title title"
+    "titlewrap titlewrap titlewrap titlewrap"
+    "body body body body"
+    "recommend recommend recommend recommend"
+    "response response response response"
+    "helpfulness helpfulness helpfulness helpfulness";
+}
+.review-title {
+  grid-area: title;
+}
