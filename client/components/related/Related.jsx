@@ -10,16 +10,16 @@ export default class Related extends Component {
       error: null,
       isLoading : true,
       items : [],
-
+      display:'none'
     }
+    this.tan=this.tan.bind(this);
+    this.hide=this.hide.bind(this);
   }
-
 
   componentDidMount() {
     $.ajax({
       url: 'http://localhost:3000/related',
-      data: {id:this.props.id},
-      method: "POST",
+      method: "GET",
       success: (res)=>{
         this.setState({
           isLoading : false,
@@ -58,9 +58,11 @@ export default class Related extends Component {
         <div>List of related ID</div>
         {items.map(item =>(
           <div>
-          <div style = {cardStyle}>
-          <Card id={item} main={this.props.id}/>
+          <Box display={this.state.display} hide={this.hide} />
+          <div style = {cardStyle} onClick={this.tan}>
+          <Card id={item} />
           </div>
+
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import $ from 'jquery';
-
+import Box from './Box.jsx';
 export default class Card extends Component {
   constructor(props){
     super(props);
@@ -10,8 +10,19 @@ export default class Card extends Component {
       item: null,
       image:null,
       price:null,
-      discountPrice: null
+      discountPrice: null,
+      display:'none'
     }
+    this.tan=this.tan.bind(this);
+    this.hide=this.hide.bind(this);
+  }
+
+  tan() {
+    this.setState({display:'block'})
+  }
+
+  hide(){
+      this.setState({display:'none'})
   }
 
 
@@ -25,7 +36,7 @@ export default class Card extends Component {
           isLoading : false,
           item: res,
           price: res.default_price
-        })
+        },()=>console.log(res))
       }
     });
     $.ajax({
@@ -41,7 +52,7 @@ export default class Card extends Component {
         })
         for (let i=0; i<res.results.length;i++) {
           cur = res.results[i];
-          console.log(this.props.id,cur)
+          // console.log(this.props.id,cur)
           if (cur['default?']){
             this.setState({
               image: cur.photos[0].thumbnail_url,
@@ -78,8 +89,9 @@ export default class Card extends Component {
         displayPrice= <div style = {{color: 'red'}}>${discountPrice} </div>
       }
     return (
-      <div>
-        <img src = {image} style={imgStyle}></img>
+      <div >
+        <Box display={this.state.display} hide={this.hide} current = {this.props.main} related={item}/>
+        <img src = {image} style={imgStyle}onClick={this.tan} ></img>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
