@@ -14,3 +14,28 @@
 .review-title {
   grid-area: title;
 }
+.review-stars {
+  grid-area: stars;
+  align-self: center;
+}
+.review-userdate {
+  grid-area: userdate;
+  align-self: center;
+  justify-self: end;
+}
+.review-titlewrap {
+  grid-area: titlewrap;
+}
+.review-body {
+  grid-area: body;
+}
+.review-recommend {
+  grid-area: recommend;
+}
+.review-response {
+  grid-area: response;
+  background-color: lightgray;
+}
+.review-helpfulness {
+  grid-area: helpfulness;
+}
