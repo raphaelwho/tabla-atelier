@@ -1,14 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
-.stars {
+.stars-container {
+  display: inline-grid;
   font-family: 'Jua', sans-serif;
-  font-size: 100px;
-  position: absolute;
   color: black;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.stars {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }
 
 .starsoverlap {
-  position: absolute;
-  left: 0;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
   overflow: hidden;
 }
