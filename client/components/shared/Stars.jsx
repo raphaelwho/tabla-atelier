@@ -24,8 +24,10 @@ var Stars = function (props) {
 
   //Unicode stars are returned in HTML code, respresenting Unicde Black Star (U2605) -> HTML &#9733; and Unicode White Star (U2606) -> HTML &#9734; https://www.unicode.org/charts/PDF/U2600.pdf
   return (
-    <span className="stars">
-      &#9734;&#9734;&#9734;&#9734;&#9734;
+    <span className="stars-container">
+      <span className="stars">
+        &#9734;&#9734;&#9734;&#9734;&#9734;
+      </span>
       <span className="starsoverlap" style={ratingStyle}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
     </span>
   );
