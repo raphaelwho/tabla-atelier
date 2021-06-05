@@ -20,7 +20,7 @@ class App extends React.Component {
 
     return <div>
     <h1>hi</h1>
-          <div><Related id={22122}/></div>
+          <div><Related id={22123}/></div>
           </div>
   }
 }

@@ -1,9 +1,12 @@
 import React,{Component} from 'react'
-// import './box.css'
+import './Box.css'
 export default class Dialog extends Component {
     constructor(props){
        super(props);
-       this.state={}
+       this.state={
+           data1: null,
+           data2: null
+       }
     }
 
 
@@ -36,8 +39,13 @@ export default class Dialog extends Component {
             <div className="mask" style={mask}>
                 <div className="content" style={content}>
                     <button onClick={this.props.hide}>&times;</button>
+                    <div>Comparing</div>
+                    <div>{this.props.current}</div>
+                    <div>{this.props.related}</div>
+
                 </div>
             </div>
+
         );
     }
 }

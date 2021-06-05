@@ -59,7 +59,7 @@ export default class Related extends Component {
         <div>List of related ID</div>
         {items.map(item =>(
           <div>
-          <Box display={this.state.display} hide={this.hide} />
+          <Box display={this.state.display} hide={this.hide} current={this.props.id} related={item}/>
           <div style = {cardStyle} onClick={this.tan}>
           <Card id={item} />
           </div>

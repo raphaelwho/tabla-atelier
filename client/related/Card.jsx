@@ -8,7 +8,9 @@ export default class Card extends Component {
       error: null,
       isLoading : true,
       item: null,
-      image:null
+      image:null,
+      price:null,
+      discountPrice: null
     }
   }
 
@@ -21,9 +23,9 @@ export default class Card extends Component {
       success: (res)=>{
         this.setState({
           isLoading : false,
-          item: res
+          item: res,
+          price: res.default_price
         })
-        console.log(res)
       }
     });
     $.ajax({
@@ -31,34 +33,56 @@ export default class Card extends Component {
       data: {id:this.props.id},
       method: "POST",
       success: (res)=>{
+        let cur = res.results[0];
         this.setState({
-          image: res.results[0].photos[0].thumbnail_url,
+          image: cur.photos[0].thumbnail_url,
+          price: cur['original_price'],
+          discountPrice: cur['sale_price']
         })
-        console.log(res)
+        for (let i=0; i<res.results.length;i++) {
+          cur = res.results[i];
+          console.log(this.props.id,cur)
+          if (cur['default?']){
+            this.setState({
+              image: cur.photos[0].thumbnail_url,
+              price: cur['original_price'],
+              discountPrice: cur['sale_price']
+            })
+
+
+            break
+          }
+        }
+
       }
     });
 
   }
   render() {
-    const {error, isLoading, item,image  } = this.state;
-    if (error) {
-      return <div>Error: {error} </div> ;
-    } else if (isLoading) {
-      return <div>Loading...</div>;
-    } else {
+    const {error, isLoading, item,image,price,discountPrice } = this.state;
+
+      if (error) {
+        return <div>Error: {error} </div> ;
+      } else if (isLoading) {
+        return <div>Loading...</div>;
+      } else {
       const imgStyle= {
         resizeMode: "repeat",
         width: '100%',
         height:220,
-
-
+      }
+      let displayPrice;
+      if (discountPrice === null )  {
+        displayPrice= <div>${price}</div>
+      } else {
+        displayPrice= <div style = {{color: 'red'}}>${discountPrice} </div>
       }
     return (
       <div>
         <img src = {image} style={imgStyle}></img>
         <div>{item.category}</div>
         <div>{item.name}</div>
-        <div>${item.default_price}</div>
+        <div>{displayPrice}</div>
       </div>
     )
     }

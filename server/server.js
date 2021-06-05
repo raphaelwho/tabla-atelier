@@ -1,15 +1,12 @@
 const express = require('express')
 var bodyParser = require('body-parser')
-const Token = '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'
 const app = express()
 const axios = require('axios')
 const port = 3000
-
+const Token = require('./config');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./client/dist"));
-
-
 app.post('/related', (req, res) => {
   let config = {
   method: 'GET',
