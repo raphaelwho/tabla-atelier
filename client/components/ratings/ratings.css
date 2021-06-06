@@ -1,12 +1,13 @@
 .reviewtile {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr auto auto auto auto 1fr;
+  grid-template-rows: 1fr 1fr auto auto auto auto auto 1fr;
   grid-template-areas:
     "stars . . userdate"
     "title title title title"
     "titlewrap titlewrap titlewrap titlewrap"
     "body body body body"
+    "photos photos photos photos"
     "recommend recommend recommend recommend"
     "response response response response"
     "helpfulness helpfulness helpfulness helpfulness";
@@ -29,12 +30,24 @@
 .review-body {
   grid-area: body;
 }
+.review-photos {
+  grid-area: photos;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+img.review-photo {
+  height: 3em;
+  border: 0.1em solid black;
+  margin-left: 2em;
+  margin-right: 2em;
+}
 .review-recommend {
   grid-area: recommend;
 }
 .review-response {
   grid-area: response;
-  background-color: lightgray;
 }
 .review-helpfulness {
   grid-area: helpfulness;

@@ -14,11 +14,11 @@ var ReviewList = function (props) {
     "helpfulness": 5,
     "photos": [{
         "id": 1,
-        "url": "urlplaceholder/review_5_photo_number_1.jpg"
+        "url": "https://www.thoughtco.com/thmb/ZDvyjscp_yiqtzlBWIvwCLV0lMI=/1333x1000/smart/filters:no_upscale()/examples-of-matter-608348-FINAL-5c891bba46e0fb0001431a70.jpg"
       },
       {
         "id": 2,
-        "url": "urlplaceholder/review_5_photo_number_2.jpg"
+        "url": "https://www.spinxdigital.com/blog/wp-content/uploads/2019/05/Infographic-Example-2-1.jpg"
       }
     ]
   };

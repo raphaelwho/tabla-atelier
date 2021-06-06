@@ -1,6 +1,7 @@
 import React from 'react';
 import Stars from '../shared/Stars.jsx';
 import './ratings.css';
+import ReviewPictures from './ReviewPictures.jsx';
 
 var ReviewTile = function (props) {
   var titlewrap = false;
@@ -19,8 +20,8 @@ var ReviewTile = function (props) {
   return (
     <div className="reviewtile">
       {titlewrap
-        ? <h4 className="review-title">{props.result.summary.slice(0, wrapCharacter)}...</h4>
-        : <h4 className="review-title">{props.result.summary}</h4>
+        ? <h3 className="review-title bold">{props.result.summary.slice(0, wrapCharacter)}...</h3>
+        : <h3 className="review-title bold">{props.result.summary}</h3>
       }
       {titlewrap === true &&
         <p className="review-titlewrap">...{props.result.summary.slice(wrapCharacter + 1)}</p>
@@ -30,6 +31,9 @@ var ReviewTile = function (props) {
       </div>
       <p className="review-userdate">{props.result.reviewer_name}, {reviewDate.toLocaleDateString('en-US', dateOptions)}</p>
       <p className="review-body">{props.result.body}</p>
+      {props.result.photos.length > 0 &&
+        <ReviewPictures photos={props.result.photos} />
+      }
       {props.result.recommend === true &&
         <p className="review-recommend">&#10003; I recommend this product</p>
       }
