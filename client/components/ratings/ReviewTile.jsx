@@ -1,6 +1,5 @@
 import React from 'react';
 import Stars from '../shared/Stars.jsx';
-import './ratings.css';
 import ReviewPictures from './ReviewPictures.jsx';
 
 var ReviewTile = function (props) {

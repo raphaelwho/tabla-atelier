@@ -52,3 +52,20 @@ img.review-photo {
 .review-helpfulness {
   grid-area: helpfulness;
 }
+.bars-container {
+  display: grid;
+  grid-template-columns: 16em;
+  grid-template-rows: .5em;
+}
+.bars {
+  background-color: gray;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.barsoverlap {
+  background-color: green;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  overflow: hidden;
+}
