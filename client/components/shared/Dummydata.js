@@ -1,3 +1,4 @@
+log('hi');
 var exampleData ={ List_products :[
   {
     id: 22122,

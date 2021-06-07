@@ -9,8 +9,9 @@ import text, {CText, CTextDemoView} from './components/shared/CText.jsx';
 class App extends React.Component {
   constructor() {
     super();
-  }
 
+  }
+ 
   render() {
     return (<div>
       <CTextDemoView />
