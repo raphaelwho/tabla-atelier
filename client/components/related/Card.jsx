@@ -106,7 +106,6 @@ export default class Card extends Component {
       data: {id:this.props.id},
       method: "POST",
       success: (res)=>{
-        log(res.ratings)
         this.setState({
           ratings: res.ratings
         })
