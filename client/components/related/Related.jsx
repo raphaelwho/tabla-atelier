@@ -3,6 +3,7 @@ import $ from 'jquery';
 import Card from './Card.jsx';
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
+import './button.css'
 
 export default class Related extends Component {
   constructor(props){
