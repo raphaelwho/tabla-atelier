@@ -15,12 +15,11 @@ class App extends React.Component {
     super();
 
   }
- 
+
   render() {
 
     return <div>
     <h1>hi</h1>
-          <Related id={22129} />
           </div>
   }
 }
