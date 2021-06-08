@@ -8,11 +8,11 @@ var Stars = function (props) {
   var ratingPercentage = (nearestQuarter * 20);
 
   //increase quarter star visibility, or in other words accounting for volume filled in star rather than width
-  console.log(ratingPercentage);
+  log(ratingPercentage);
   if (nearestQuarter - Math.trunc(nearestQuarter) === 0.25) {
     ratingPercentage = ratingPercentage + 2.5;
   } else if (nearestQuarter - Math.trunc(nearestQuarter) === 0.75) {
-    console.log('reducing');
+    log('reducing');
     ratingPercentage = ratingPercentage - 2.5;
   }
 
@@ -24,8 +24,10 @@ var Stars = function (props) {
 
   //Unicode stars are returned in HTML code, respresenting Unicde Black Star (U2605) -> HTML &#9733; and Unicode White Star (U2606) -> HTML &#9734; https://www.unicode.org/charts/PDF/U2600.pdf
   return (
-    <span className="stars">
-      &#9734;&#9734;&#9734;&#9734;&#9734;
+    <span className="stars-container">
+      <span className="stars">
+        &#9734;&#9734;&#9734;&#9734;&#9734;
+      </span>
       <span className="starsoverlap" style={ratingStyle}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
     </span>
   );

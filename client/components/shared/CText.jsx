@@ -14,7 +14,6 @@ class CText extends React.Component {
   }
 
   render() {
-
     const style = {
       "fontSize": `${this.props.size || 1}em`,
       "color": `${this.props.color || "black"}`}
