@@ -9,6 +9,7 @@ import ClickableStars from './components/shared/ClickableStars.jsx'
 import text, {CText, CTextDemoView} from './components/shared/CText.jsx';
 import Slide from './related/Slide.jsx';
 import $ from 'jquery';
+import Ratings from './components/ratings/Ratings.jsx';
 
 
 class App extends React.Component {
