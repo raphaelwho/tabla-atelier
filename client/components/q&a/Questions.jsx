@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import data from './DummyQuestionData.js';
 import IndividualQuestion from './IndividualQuestion/IndividualQuestion.jsx';
 import CText from '../shared/CText.jsx';
+import SearchBar from './IndividualQuestion/SearchBar.jsx';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Questions extends React.Component {
     return (
       <div id="qanda">
         <h3 className="default">Questions &amp; Answers</h3>
+        <SearchBar />
         <IndividualQuestion data={this.state.data} helpful={this.state.helpful} />
       </div>
     )
