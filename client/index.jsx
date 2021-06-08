@@ -13,8 +13,9 @@ import Ratings from './components/ratings/Ratings.jsx';
 class App extends React.Component {
   constructor() {
     super();
-  }
 
+  }
+ 
   render() {
 
     return <div>
