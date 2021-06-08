@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import $ from 'jquery';
 import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
 import './Card.css'
 
+import Stars from '../shared/Stars.jsx';
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, open } = props;
@@ -10,9 +13,51 @@ function SimpleDialog(props) {
     onClose(selectedValue);
   };
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <div>Comparison</div>
-      <div>insideDialog</div>
+    <Dialog scroll='paper' onClose={handleClose} open={open}>
+      <DialogTitle>Comparing</DialogTitle>
+      <DialogContent>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div>Left_Name Right_name</div>
+      <div></div>
+      </DialogContent>
     </Dialog>
   );
 }
@@ -27,7 +72,8 @@ export default class Card extends Component {
       image:null,
       price:null,
       discountPrice: null,
-      display:false
+      display:false,
+      ratings: {}
     }
     this.handleClickOpen=this.handleClickOpen.bind(this);
     this.handlClose=this.handlClose.bind(this);
@@ -52,7 +98,18 @@ export default class Card extends Component {
           isLoading : false,
           item: res,
           price: res.default_price
-        },()=>console.log(res))
+        })
+      }
+    });
+    $.ajax({
+      url: 'http://localhost:3000/review/meta',
+      data: {id:this.props.id},
+      method: "POST",
+      success: (res)=>{
+        log(res.ratings)
+        this.setState({
+          ratings: res.ratings
+        })
       }
     });
     $.ajax({
@@ -86,7 +143,22 @@ export default class Card extends Component {
 
   }
   render() {
-    const {error, isLoading, item, image, price, discountPrice, display } = this.state;
+    const {error, isLoading, item, image, price, discountPrice, display, ratings } = this.state;
+    let rating = 0;
+    let Star;
+      if (Object.keys(ratings).length !== 0) {
+        let numberOfrating=0;
+        let sum = 0;
+        for(let key in ratings) {
+          numberOfrating += Number(ratings[key]);
+          sum += Number(key) * Number(ratings[key])
+        }
+        rating = sum / numberOfrating;
+        Star=<div><Stars rating = {rating} /></div>;
+      } else {
+        Star = <div></div>
+      }
+
       if (error) {
         return <div>Error: {error} </div> ;
       } else if (isLoading) {
@@ -104,8 +176,9 @@ export default class Card extends Component {
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
+        {Star}
         <br />
-        <SimpleDialog open={this.state.display} onClose={this.handlClose} />
+        <SimpleDialog  open={this.state.display} onClose={this.handlClose} />
       </div>
 
 
