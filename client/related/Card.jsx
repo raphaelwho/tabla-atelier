@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import $ from 'jquery';
 import Box from './Box.jsx';
+import Dialog from './Dialog.jsx';
+
 export default class Card extends Component {
   constructor(props){
     super(props);
@@ -71,7 +73,14 @@ export default class Card extends Component {
   }
   render() {
     const {error, isLoading, item,image,price,discountPrice } = this.state;
-
+let cardStyle = {
+  float:'left',
+  width:'20%',
+  height: '300px',
+  borderBlockColor:'black',
+  border:'2px solid',
+  margin: '10px',
+    }
       if (error) {
         return <div>Error: {error} </div> ;
       } else if (isLoading) {
@@ -89,13 +98,17 @@ export default class Card extends Component {
         displayPrice= <div style = {{color: 'red'}}>${discountPrice} </div>
       }
     return (
+
       <div >
         <Box display={this.state.display} hide={this.hide} current = {this.props.main} related={item}/>
-        <img src = {image} style={imgStyle}onClick={this.tan} ></img>
+        <img src = {image} style={imgStyle} onClick={this.tan} ></img>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
+        <Dialog />
       </div>
+
+
     )
     }
   }
