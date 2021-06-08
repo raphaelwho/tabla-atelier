@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import Card from './Card.jsx';
-import Box from './Box.jsx';
-// import axios from 'axios';
+import Swiper from 'react-id-swiper';
+import 'swiper/css/swiper.css';
+
 export default class Related extends Component {
   constructor(props){
     super(props);
@@ -10,16 +11,16 @@ export default class Related extends Component {
       error: null,
       isLoading : true,
       items : [],
-      display:'none'
+
     }
-    this.tan=this.tan.bind(this);
-    this.hide=this.hide.bind(this);
   }
 
   componentDidMount() {
+
     $.ajax({
       url: 'http://localhost:3000/related',
-      method: "GET",
+      data: {id:this.props.id},
+      method: "POST",
       success: (res)=>{
         this.setState({
           isLoading : false,
@@ -28,9 +29,11 @@ export default class Related extends Component {
       }
     })
 
+
+
   }
   tan(){
-    console.log(this);
+
     this.setState({display:'block'})
   }
 
@@ -39,33 +42,36 @@ export default class Related extends Component {
   }
   render() {
     const {error, isLoading, items } = this.state;
-    let cardStyle = {
-      float:'left',
-      width:'20%',
-      height: '300px',
-      borderBlockColor:'black',
-      border:'2px solid',
-      margin: '10px',
-    }
+
     if (error) {
       return <div>Error: {error} </div> ;
     } else if (isLoading) {
       return <div>Loading...</div>;
     } else {
+      const params = {
+        slidesPerView: 4.5,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      }
+
+
     return (
       <div>
         <h1 style={{color:'gray'}}>RELATED PRODUCTS</h1>
+
         <div>List of related ID</div>
+        <Swiper {...params}>
         {items.map(item =>(
           <div>
-          <Box display={this.state.display} hide={this.hide} />
-          <div style = {cardStyle} onClick={this.tan}>
-          <Card id={item} />
-          </div>
+            <Card id={item} main={this.props.id}/>
+            </div>
+            ))}
+        </Swiper>
 
-          </div>
-        ))}
-      </div>
+
+    </div>
     )
     }
   }
