@@ -25,4 +25,4 @@ window.log = function(...arguments) {
         _log.apply(null, arrCopy);
     }
 }
-//
+
