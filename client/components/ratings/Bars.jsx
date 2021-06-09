@@ -11,10 +11,8 @@ var Bars = function (props) {
 
   return (
     <span className="bars-container">
-      <span className="bars">
-      &nbsp;
-      </span>
-      <span className="barsoverlap" style={ratingStyle}>&nbsp;</span>
+      <span className="bars"></span>
+      <span className="barsoverlap" style={ratingStyle}></span>
     </span>
   );
 }
