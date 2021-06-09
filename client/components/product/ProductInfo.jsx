@@ -1,6 +1,6 @@
 import React from 'react';
 import Stars from '../shared/Stars.jsx';
-import text, {CText, CTextDemoView} from '../shared/CText.jsx';
+import {CText} from '../shared/CText.jsx';
 import './css/ProductInfo.css';
 
 
@@ -28,6 +28,7 @@ class ProductInfo extends React.Component {
                 {this.getProductRating()}
                 <CText text="CATEGORY" style="thin" color="grey"/>
                 <CText text="EXPANDED PRODUCT NAME" style="bold" size={2}/>
+                <CText text="$365" style="thin" size={0.75} color="grey"/>
             </div>
         )
     }
