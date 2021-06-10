@@ -3,26 +3,16 @@ import ReactDOM from 'react-dom';
 import data from './DummyQuestionData.js';
 import IndividualQuestion from './IndividualQuestion/IndividualQuestion.jsx';
 import CText from '../shared/CText.jsx';
+import SearchBar from './IndividualQuestion/SearchBar.jsx';
 
 class Questions extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      questions: '',
-      answers: '',
+      reported: false,
       data: data,
-      helpful: 0
-    }
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(e) {
-    if (e.target.id === 'yes') {
-      this.setState({
-        helpful: this.state.helpful += 1
-      }, () => {
-        console.log(this.state.helpful)
-      });
+      questionHelpfulness: 0,
+      answerHelpfulness: 0
     }
   }
 
@@ -30,7 +20,8 @@ class Questions extends React.Component {
     return (
       <div id="qanda">
         <h3 className="default">Questions &amp; Answers</h3>
-        <IndividualQuestion data={this.state.data} helpful={this.state.helpful} />
+        <SearchBar />
+        <IndividualQuestion data={this.state.data} questionHelpfulness={this.state.questionHelpfulness} answerHelpfulness={this.state.answerHelpfulness} />
       </div>
     )
   }
