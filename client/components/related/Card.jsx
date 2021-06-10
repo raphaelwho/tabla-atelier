@@ -8,55 +8,23 @@ import './Card.css'
 import Stars from '../shared/Stars.jsx';
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, selectedValue, open,item } = props;
   const handleClose = () => {
     onClose(selectedValue);
   };
   return (
     <Dialog scroll='paper' onClose={handleClose} open={open}>
-      <DialogTitle>Comparing</DialogTitle>
+      <DialogTitle><h2>Comparing</h2>
+      <div>{item.name}</div>
+
+      </DialogTitle>
       <DialogContent>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div>Left_Name Right_name</div>
-      <div></div>
+      {item.features.map(feature=>(
+        <div>
+        <div>{feature.value}</div>
+        <div>{feature.key}</div>
+        </div>
+      ))}
       </DialogContent>
     </Dialog>
   );
@@ -177,7 +145,7 @@ export default class Card extends Component {
         <div>{displayPrice}</div>
         {Star}
         <br />
-        <SimpleDialog  open={this.state.display} onClose={this.handlClose} />
+        <SimpleDialog  open={this.state.display} onClose={this.handlClose} item={item}/>
       </div>
 
 
