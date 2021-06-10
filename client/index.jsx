@@ -20,7 +20,6 @@ class App extends React.Component {
 
     return <div>
     <h1>hi</h1>
-          <Related id={22129} />
           </div>
   }
 }
