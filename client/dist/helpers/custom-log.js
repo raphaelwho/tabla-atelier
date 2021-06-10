@@ -11,13 +11,18 @@ window.console.log = function(text) {
 // Ex: log("Custom Log")
 // Will output the file location where the log is executed
 // TODO: --> WARNING: NOT CURRENTLY USEABLE IN NODEJS FILES
-window.log = function(text) {
+window.log = function(...arguments) {
     try { throw new Error; }
     catch(e) {
 
         // Parser to find execution file
         const filename = e.stack.split("\n")[2].split("/").slice(-1)[0].split("?")[0];
-        _log(`Executing in ${filename}: `, text);
+
+        let arrCopy = [`Executing in ${filename}: `]
+        arguments.forEach(x => {
+            arrCopy.push(x);
+        });
+        _log.apply(null, arrCopy);
     }
 }
 
