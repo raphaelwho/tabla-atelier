@@ -13,7 +13,6 @@ export default function Comparing(props) {
   for (let i=0; i<cur.features.length; i++) {
     let key = cur.features[i].feature
     let value = cur.features[i].value
-
     Comparing_table[key]=Comparing_table[key] || {'left':undefined,'right':undefined};
     Comparing_table[key]['right']=value
   }

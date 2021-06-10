@@ -17,7 +17,7 @@ function SimpleDialog(props) {
   return (
     <Dialog scroll='paper' onClose={handleClose} open={open}>
       <DialogTitle><h2>Comparing</h2>
-      <div>{item.name}|{cur.name}</div>
+      <div>{item.name}----{cur.name}</div>
       </DialogTitle>
       <DialogContent>
       <Comparing item= {item} cur={cur}/>
