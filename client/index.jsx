@@ -8,7 +8,7 @@ import text, {CText, CTextDemoView} from './components/shared/CText.jsx';
 import Questions from './components/q&a/Questions.jsx';
 import Ratings from './components/ratings/Ratings.jsx';
 import Product from './components/product/Product.jsx';
-import Questions from './components/q&a/Questions.jsx';
+
 
 class App extends React.Component {
   constructor() {
