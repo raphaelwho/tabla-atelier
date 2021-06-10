@@ -61,8 +61,6 @@ export default class Related extends Component {
     return (
       <div>
         <h1 style={{color:'gray'}}>RELATED PRODUCTS</h1>
-
-        <div>List of related ID</div>
         <Swiper {...params}>
         {items.map(item =>(
           <div>
@@ -71,6 +69,13 @@ export default class Related extends Component {
             ))}
         </Swiper>
         <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
+        <Swiper {...params}>
+        {items.map(item =>(
+          <div>
+            <Card id={item} main={this.props.id}/>
+            </div>
+            ))}
+        </Swiper>
 
 
     </div>
