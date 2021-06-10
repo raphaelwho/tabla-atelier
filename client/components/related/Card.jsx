@@ -3,7 +3,9 @@ import $ from 'jquery';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import './Card.css'
+import Comparing from "./Comparing.jsx" ;
+import './Card.css';
+
 
 import Stars from '../shared/Stars.jsx';
 
@@ -19,12 +21,7 @@ function SimpleDialog(props) {
 
       </DialogTitle>
       <DialogContent>
-      {item.features.map(feature=>(
-        <div>
-        <div>{feature.value}</div>
-        <div>{feature.key}</div>
-        </div>
-      ))}
+      <Comparing item= {item}/>
       </DialogContent>
     </Dialog>
   );

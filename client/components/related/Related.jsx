@@ -70,6 +70,7 @@ export default class Related extends Component {
             </div>
             ))}
         </Swiper>
+        <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
 
 
     </div>
