@@ -8,7 +8,7 @@ class Product extends React.Component {
         super(props);
 
         this.state = {
-            selectedStyle:null
+            selectedStyle: null
         }
     }
 
