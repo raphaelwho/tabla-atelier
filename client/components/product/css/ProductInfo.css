@@ -1,0 +1,13 @@
+.ratingbutton {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 30px;
+    width: 200px;
+    justify-content: center;
+}
+
+.griditem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
