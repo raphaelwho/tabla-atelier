@@ -3,7 +3,7 @@ import React from 'react';
 var Bars = function (props) {
   var barPercentage = props.percentage;
 
-  //defing width for CSS styling
+  //defing width of bar for CSS styling
   var barPercentageText = `${barPercentage.toString()}%`;
   var ratingStyle = {
     width: barPercentageText

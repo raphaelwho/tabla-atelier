@@ -64,7 +64,6 @@ img.review-photo {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
 }
-
 .barsoverlap {
   background-color: green;
   grid-column: 1 / 2;
