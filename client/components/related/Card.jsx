@@ -10,17 +10,17 @@ import './Card.css';
 import Stars from '../shared/Stars.jsx';
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open,item } = props;
+  const { onClose, selectedValue, open,item,cur } = props;
   const handleClose = () => {
     onClose(selectedValue);
   };
   return (
     <Dialog scroll='paper' onClose={handleClose} open={open}>
       <DialogTitle><h2>Comparing</h2>
-      <div>{item.name}</div>
+      <div>{item.name}|{cur.name}</div>
       </DialogTitle>
       <DialogContent>
-      <Comparing item= {item}/>
+      <Comparing item= {item} cur={cur}/>
       </DialogContent>
     </Dialog>
   );
@@ -107,6 +107,7 @@ export default class Card extends Component {
   }
   render() {
     const {error, isLoading, item, image, price, discountPrice, display, ratings } = this.state;
+    const cur = this.props.cur
     let rating = 0;
     let Star;
       if (Object.keys(ratings).length !== 0) {
@@ -141,7 +142,7 @@ export default class Card extends Component {
         <div>{displayPrice}</div>
         {Star}
         <br />
-        <SimpleDialog  open={this.state.display} onClose={this.handlClose} item={item}/>
+        <SimpleDialog  open={this.state.display} onClose={this.handlClose} item={item} cur ={cur}/>
       </div>
 
 

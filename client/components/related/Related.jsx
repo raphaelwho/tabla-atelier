@@ -12,11 +12,22 @@ export default class Related extends Component {
       error: null,
       isLoading : true,
       items : [],
+      cur : null,
 
     }
   }
 
   componentDidMount() {
+    $.ajax({
+      url: 'http://localhost:3000/card',
+      data: {id:this.props.id},
+      method: "POST",
+      success: (res)=>{
+        this.setState({
+          cur: res
+        })
+      }
+    })
 
     $.ajax({
       url: 'http://localhost:3000/related',
@@ -42,8 +53,7 @@ export default class Related extends Component {
       this.setState({display:'none'})
   }
   render() {
-    const {error, isLoading, items } = this.state;
-
+    const {error, isLoading, items, cur } = this.state;
     if (error) {
       return <div>Error: {error} </div> ;
     } else if (isLoading) {
@@ -64,18 +74,12 @@ export default class Related extends Component {
         <Swiper {...params}>
         {items.map(item =>(
           <div>
-            <Card id={item} main={this.props.id}/>
+            <Card id={item} cur={cur}/>
             </div>
             ))}
         </Swiper>
         <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
-        <Swiper {...params}>
-        {items.map(item =>(
-          <div>
-            <Card id={item} main={this.props.id}/>
-            </div>
-            ))}
-        </Swiper>
+
 
 
     </div>
