@@ -11,6 +11,7 @@ class ClickableStars extends React.Component {
     }
   }
 
+  // TODO: CANNOT HANDLE MULTIPLE SIMULTANEOUS VIEWS, WILL OVERRIDE OTHER COMPONENT
   onClick(e) {
     var elements = [...document.getElementsByClassName('c-star')];
     var newElements = elements.forEach(ele => {
@@ -20,6 +21,9 @@ class ClickableStars extends React.Component {
         ele.className = "c-star";
       }
     });
+
+    // Pass super function if exists
+    if (this.props.onClick) { this.props.onClick(e); }
   }
 
   componentDidMount() {

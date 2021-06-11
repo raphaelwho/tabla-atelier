@@ -25,8 +25,16 @@ class Product extends React.Component {
                     <Dropdown initValue="SELECT SIZE V" options={[1,2,3,4]}/>
                     <Dropdown initValue="1" options={[1,2,3,4]}/>
                 </div>
-                <CButton click={() => {log("Button clicked")}} Text={'ADD TO CART'} type={'add'}/>
-                <ClickableStars numStars={5}/>
+
+                <div className="size-flexgrid">
+                    <CButton click={() => {log("Button clicked")}} Text={'ADD TO CART'} type={'add'}/>
+
+                    {/* TODO: CORRECTLY CENTER AND MANAGE INTERACTIONS */}
+                    <div className="starButton">
+                        <ClickableStars numStars={1}/>
+                    </div>
+                </div>
+
                
             </div>
         )
