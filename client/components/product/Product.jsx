@@ -6,6 +6,7 @@ import {Dropdown, DropdownDemo} from '../shared/Dropdown.jsx'
 import CButton from '../shared/CButton.jsx'
 import ClickableStars from '../shared/ClickableStars.jsx'
 import './css/Product.css'
+import { CText } from '../shared/CText.jsx';
 
 class Product extends React.Component {
     constructor(props) {
@@ -18,22 +19,33 @@ class Product extends React.Component {
 
     render() {
         return(
-            <div>
-                <ProductInfo />
-                <StyleSelector styles={[1,2,3,4,5]}/>
-                <div className="size-flexgrid">
-                    <Dropdown initValue="SELECT SIZE V" options={[1,2,3,4]}/>
-                    <Dropdown initValue="1" options={[1,2,3,4]}/>
+            <div className="product-master-grid">
+                <div className="leading">
+                    <CText text="WIP" size={2} />
                 </div>
 
-                <div className="size-flexgrid">
-                    <CButton click={() => {log("Button clicked")}} Text={'ADD TO CART'} type={'add'}/>
+                <div classname="trailing">
+                    <ProductInfo />
+                    <StyleSelector styles={[1,2,3,4,5]}/>
+                    
+                    <h1> </h1> {/* Temp Spacer */}
+                    <div className="size-flexgrid">
+                        <Dropdown initValue="SELECT SIZE V" options={[1,2,3,4]}/>
+                        <Dropdown initValue="1" options={[1,2,3,4]}/>
+                    </div>
 
-                    {/* TODO: CORRECTLY CENTER AND MANAGE INTERACTIONS */}
-                    <div className="starButton">
-                        <ClickableStars numStars={1}/>
+                    
+                    <h1> </h1> {/* Temp Spacer */}
+                    <div className="size-flexgrid">
+                        <CButton click={() => {log("Button clicked")}} Text={'ADD TO CART'} type={'add'}/>
+
+                        {/* TODO: CORRECTLY CENTER AND MANAGE INTERACTIONS */}
+                        <div className="starButton">
+                            <ClickableStars numStars={1}/>
+                        </div>
                     </div>
                 </div>
+
 
                
             </div>

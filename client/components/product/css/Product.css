@@ -15,3 +15,9 @@
     display: grid;
     grid-template-columns: repeat(4, auto);
 }
+
+.product-master-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 0;
+}
