@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
+import {CText} from './CText.jsx'
 /*
-Used：<Square_button click={click_method} Text={'display_text} style = {css_Style} type={'add'}/>
+Use：<Square_button click={click_method} Text={'display_text} style = {css_Style} type={'add'}/>
  */
 import './css/CButton.css'
 export default class CButton extends Component {
 
   render() {
-    const btnstyle = this.props.style || {
-      color:'gray',
-      textAlign: 'left',
-      fontSize:'15px',width: 200 +'px', height:50+'px', border: '1px solid',background: 'White'}
     return (
-      <div>
-        <button variant="outline-dark" class = {this.props.type} style = {btnstyle} onClick={this.props.Click} >{this.props.Text}</button>
+      <div className="cbutton-wrapper">
+        <div className="cbutton-text">
+          <CText text={this.props.Text} style="semibold" size={0.8}/>
+        </div>
+
+        <button variant="outline-dark" className="CButton" onClick={this.props.Click}></button>
+        <h3 className="plus">+</h3>
       </div>
     )
   }
-
 }

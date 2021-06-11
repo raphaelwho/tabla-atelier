@@ -28,6 +28,10 @@ class CText extends React.Component {
         return <h1 className="light" style={style}>{this.props.text}</h1>
         break;
 
+      case "semibold":
+        return <h1 className="semibold" style={style}>{this.props.text}</h1>
+        break;
+
       default:
         return <h1 className="default" style={style}>{this.props.text}</h1>
         break;
