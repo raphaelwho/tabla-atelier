@@ -4,6 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Comparing from "./Comparing.jsx" ;
+import {FaRegStar } from 'react-icons/fa';
 import './Card.css';
 
 
@@ -137,6 +138,7 @@ export default class Card extends Component {
     return (
       <div class='card' >
         <img src = {image} onClick={this.handleClickOpen} ></img>
+        <div class="icon"><FaRegStar /></div>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
