@@ -13,8 +13,10 @@ export default class Related extends Component {
       isLoading : true,
       items : [],
       cur : null,
+      myoutfits:[],
 
     }
+
   }
 
   componentDidMount() {
@@ -44,14 +46,13 @@ export default class Related extends Component {
 
 
   }
-  tan(){
 
-    this.setState({display:'block'})
+  addToMyoutfits(id) {
+    this.setState({
+      myoutfits: [...this.state.myoutfits, id]
+    })
   }
 
-  hide(){
-      this.setState({display:'none'})
-  }
   render() {
     const {error, isLoading, items, cur } = this.state;
     if (error) {
@@ -79,9 +80,6 @@ export default class Related extends Component {
             ))}
         </Swiper>
         <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
-
-
-
     </div>
     )
     }
