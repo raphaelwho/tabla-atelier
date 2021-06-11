@@ -10,9 +10,26 @@
     display: inline-block;
 }
 
+.selected {
+    position: absolute;
+    margin-left: 0px;
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+    animation-name: fadein;
+    animation-duration: 1s;
+}
+
 .stylesgrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
-    justify-content: center;
 }
+
+@keyframes fadein {
+    from { opacity: 0}
+    to   { opacity: 1}
+}
+  
