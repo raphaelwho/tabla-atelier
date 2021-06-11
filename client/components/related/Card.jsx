@@ -56,7 +56,7 @@ export default class Card extends Component {
   componentDidMount() {
     $.ajax({
       url: 'http://localhost:3000/card',
-      data: {id:this.props.id},
+      data: {id:this.props.item_id},
       method: "POST",
       success: (res)=>{
         this.setState({
@@ -68,7 +68,7 @@ export default class Card extends Component {
     });
     $.ajax({
       url: 'http://localhost:3000/review/meta',
-      data: {id:this.props.id},
+      data: {id:this.props.item_id},
       method: "POST",
       success: (res)=>{
         this.setState({
@@ -78,7 +78,7 @@ export default class Card extends Component {
     });
     $.ajax({
       url: 'http://localhost:3000/cardimage',
-      data: {id:this.props.id},
+      data: {id:this.props.item_id},
       method: "POST",
       success: (res)=>{
         let cur = res.results[0];
@@ -96,8 +96,6 @@ export default class Card extends Component {
               price: cur['original_price'],
               discountPrice: cur['sale_price']
             })
-
-
             break
           }
         }
@@ -138,7 +136,7 @@ export default class Card extends Component {
     return (
       <div class='card' >
         <img src = {image} onClick={this.handleClickOpen} ></img>
-        <div class="icon"><FaRegStar /></div>
+        <div class="icon" onClick={()=>{this.props.add(this.props.item_id)}}><FaRegStar /></div>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>

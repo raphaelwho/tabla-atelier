@@ -16,6 +16,8 @@ export default class Related extends Component {
       myoutfits:[],
 
     }
+    this.addToMyoutfits=this.addToMyoutfits.bind(this)
+    this.removeMyOutfit=this.removeMyOutfit.bind(this)
 
   }
 
@@ -46,15 +48,21 @@ export default class Related extends Component {
 
 
   }
-
+  removeMyOutfit(id) {
+    const myoutfits =  this.state.myoutfits.filter(item => item !== id)
+    this.setState({ myoutfits })
+  }
   addToMyoutfits(id) {
-    this.setState({
-      myoutfits: [...this.state.myoutfits, id]
-    })
+    if (!this.state.myoutfits.includes(id)) {
+      const myoutfits = [...this.state.myoutfits,id]
+      this.setState({ myoutfits })
+    }
   }
 
   render() {
-    const {error, isLoading, items, cur } = this.state;
+
+    const {error, isLoading, items, cur,myoutfits } = this.state;
+    log(myoutfits)
     if (error) {
       return <div>Error: {error} </div> ;
     } else if (isLoading) {
@@ -65,7 +73,9 @@ export default class Related extends Component {
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
-        }
+        },
+        observer: true,
+        observeParents: true,
       }
 
 
@@ -75,11 +85,18 @@ export default class Related extends Component {
         <Swiper {...params}>
         {items.map(item =>(
           <div>
-            <Card id={item} cur={cur}/>
+            <Card item_id={item} cur={cur} add={this.addToMyoutfits}/>
             </div>
             ))}
         </Swiper>
         <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
+        <Swiper {...params}>
+        {myoutfits.map(item =>(
+          <div>
+            <Card item_id={item} cur={cur} add={this.removeMyOutfit}/>
+            </div>
+            ))}
+        </Swiper>
     </div>
     )
     }
