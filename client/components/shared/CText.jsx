@@ -14,10 +14,10 @@ class CText extends React.Component {
   }
 
   render() {
-
     const style = {
       "fontSize": `${this.props.size || 1}em`,
-      "color": `${this.props.color || "black"}`}
+      "color": `${this.props.color || "black"}`
+    }
 
     switch(this.props.style) {
       case "bold":
@@ -30,6 +30,7 @@ class CText extends React.Component {
 
       default:
         return <h1 className="default" style={style}>{this.props.text}</h1>
+        break;
     }
   }
 }
@@ -57,7 +58,7 @@ class CTextDemoView extends React.Component {
 
       </div>
     )
-  }
+  } 
 }
 
 export {
