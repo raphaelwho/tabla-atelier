@@ -4,6 +4,8 @@ import Card from './Card.jsx';
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
 import './button.css'
+import {FaRegStar } from 'react-icons/fa';
+import {CgCloseO } from 'react-icons/cg';
 
 export default class Related extends Component {
   constructor(props){
@@ -85,7 +87,7 @@ export default class Related extends Component {
         <Swiper {...params}>
         {items.map(item =>(
           <div>
-            <Card item_id={item} cur={cur} add={this.addToMyoutfits}/>
+            <Card item_id={item} cur={cur} add={this.addToMyoutfits} icon={<FaRegStar />}/>
             </div>
             ))}
         </Swiper>
@@ -93,7 +95,7 @@ export default class Related extends Component {
         <Swiper {...params}>
         {myoutfits.map(item =>(
           <div>
-            <Card item_id={item} cur={cur} add={this.removeMyOutfit}/>
+            <Card item_id={item} cur={cur} add={this.removeMyOutfit} icon={< CgCloseO />}/>
             </div>
             ))}
         </Swiper>

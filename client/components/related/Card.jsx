@@ -136,7 +136,7 @@ export default class Card extends Component {
     return (
       <div class='card' >
         <img src = {image} onClick={this.handleClickOpen} ></img>
-        <div class="icon" onClick={()=>{this.props.add(this.props.item_id)}}><FaRegStar /></div>
+        <div class="icon" onClick={()=>{this.props.add(this.props.item_id)}}>{this.props.icon}</div>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
