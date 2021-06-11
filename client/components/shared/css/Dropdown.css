@@ -1,0 +1,30 @@
+#custom-dropdown {
+
+    appearance: none;
+    background-color: transparent;
+    padding: 10px 50px 10px 10px;
+    margin: 0;
+    max-width: 250px;
+    min-width: 80px;
+    width: 100%;
+    font-family: Helvetica, sans-serif;
+    font-weight: 700;
+    cursor: inherit;
+    line-height: inherit;
+}
+
+
+.arrow {
+    position: absolute;
+    margin-top: 12px;
+    margin-left: -20px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}

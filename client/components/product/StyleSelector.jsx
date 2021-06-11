@@ -11,6 +11,7 @@ class StyleSelector extends React.Component {
         var prevSelection = document.getElementsByClassName("selected")[0];
         prevSelection.className = "";
 
+        // Add superview function when nessesary
         event.target.childNodes[0].className = "selected";
     }
 
