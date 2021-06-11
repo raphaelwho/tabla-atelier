@@ -1,8 +1,26 @@
-.add{
-  position: relative;
+.CButton {
+  height: 40px;
+  appearance: none;
+  background-color: transparent;
+  padding: 10px 50px 10px 10px;
+  margin: 0;
+  max-width: 250px;
+  min-width: 150px;
+  width: 100%;
+  border-width: 1.5px;
+  cursor: inherit;
+  line-height: inherit;
 }
-.add::after {
+
+.plus {
   position: absolute;
-  content: " +";
-  right: 0;
+  margin-top: 8px;
+  margin-left: -20px;
+  display: inline-block;
+}
+
+.cbutton-text {
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 4px;
 }
