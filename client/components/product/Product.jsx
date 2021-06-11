@@ -4,6 +4,7 @@ import ProductInfo from './ProductInfo.jsx'
 import StyleSelector from './StyleSelector.jsx'
 import {Dropdown, DropdownDemo} from '../shared/Dropdown.jsx'
 import CButton from '../shared/CButton.jsx'
+import ClickableStars from '../shared/ClickableStars.jsx'
 import './css/Product.css'
 
 class Product extends React.Component {
@@ -25,6 +26,7 @@ class Product extends React.Component {
                     <Dropdown initValue="1" options={[1,2,3,4]}/>
                 </div>
                 <CButton click={() => {log("Button clicked")}} Text={'ADD TO CART'} type={'add'}/>
+                <ClickableStars numStars={5}/>
                
             </div>
         )
