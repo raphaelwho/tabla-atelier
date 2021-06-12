@@ -17,14 +17,19 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
     <div>
       <Product />
+      <Related id={22128}/>
+      <Questions />
       <Ratings />
-    </div>
-    )
+    </div>);
 
-  }
+
+
+
+}
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

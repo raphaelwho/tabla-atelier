@@ -4,6 +4,8 @@ import Card from './Card.jsx';
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
 import './button.css'
+import {FaRegStar } from 'react-icons/fa';
+import {CgCloseO } from 'react-icons/cg';
 
 export default class Related extends Component {
   constructor(props){
@@ -12,11 +14,26 @@ export default class Related extends Component {
       error: null,
       isLoading : true,
       items : [],
+      cur : null,
+      myoutfits:[],
 
     }
+    this.addToMyoutfits=this.addToMyoutfits.bind(this)
+    this.removeMyOutfit=this.removeMyOutfit.bind(this)
+
   }
 
   componentDidMount() {
+    $.ajax({
+      url: 'http://localhost:3000/card',
+      data: {id:this.props.id},
+      method: "POST",
+      success: (res)=>{
+        this.setState({
+          cur: res
+        })
+      }
+    })
 
     $.ajax({
       url: 'http://localhost:3000/related',
@@ -33,17 +50,21 @@ export default class Related extends Component {
 
 
   }
-  tan(){
-
-    this.setState({display:'block'})
+  removeMyOutfit(id) {
+    const myoutfits =  this.state.myoutfits.filter(item => item !== id)
+    this.setState({ myoutfits })
+  }
+  addToMyoutfits(id) {
+    if (!this.state.myoutfits.includes(id)) {
+      const myoutfits = [...this.state.myoutfits,id]
+      this.setState({ myoutfits })
+    }
   }
 
-  hide(){
-      this.setState({display:'none'})
-  }
   render() {
-    const {error, isLoading, items } = this.state;
 
+    const {error, isLoading, items, cur,myoutfits } = this.state;
+    log(myoutfits)
     if (error) {
       return <div>Error: {error} </div> ;
     } else if (isLoading) {
@@ -54,24 +75,30 @@ export default class Related extends Component {
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
-        }
+        },
+        observer: true,
+        observeParents: true,
       }
 
 
     return (
       <div>
         <h1 style={{color:'gray'}}>RELATED PRODUCTS</h1>
-
-        <div>List of related ID</div>
         <Swiper {...params}>
         {items.map(item =>(
           <div>
-            <Card id={item} main={this.props.id}/>
+            <Card item_id={item} cur={cur} add={this.addToMyoutfits} icon={<FaRegStar />}/>
             </div>
             ))}
         </Swiper>
-
-
+        <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
+        <Swiper {...params}>
+        {myoutfits.map(item =>(
+          <div>
+            <Card item_id={item} cur={cur} add={this.removeMyOutfit} icon={< CgCloseO />}/>
+            </div>
+            ))}
+        </Swiper>
     </div>
     )
     }

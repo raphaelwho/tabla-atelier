@@ -3,28 +3,25 @@ import $ from 'jquery';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import './Card.css'
+import Comparing from "./Comparing.jsx" ;
+import {FaRegStar } from 'react-icons/fa';
+import './Card.css';
+
 
 import Stars from '../shared/Stars.jsx';
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open,item } = props;
+  const { onClose, selectedValue, open,item,cur } = props;
   const handleClose = () => {
     onClose(selectedValue);
   };
   return (
     <Dialog scroll='paper' onClose={handleClose} open={open}>
       <DialogTitle><h2>Comparing</h2>
-      <div>{item.name}</div>
-
+      <div>{item.name}----{cur.name}</div>
       </DialogTitle>
       <DialogContent>
-      {item.features.map(feature=>(
-        <div>
-        <div>{feature.value}</div>
-        <div>{feature.key}</div>
-        </div>
-      ))}
+      <Comparing item= {item} cur={cur}/>
       </DialogContent>
     </Dialog>
   );
@@ -59,7 +56,7 @@ export default class Card extends Component {
   componentDidMount() {
     $.ajax({
       url: 'http://localhost:3000/card',
-      data: {id:this.props.id},
+      data: {id:this.props.item_id},
       method: "POST",
       success: (res)=>{
         this.setState({
@@ -71,7 +68,7 @@ export default class Card extends Component {
     });
     $.ajax({
       url: 'http://localhost:3000/review/meta',
-      data: {id:this.props.id},
+      data: {id:this.props.item_id},
       method: "POST",
       success: (res)=>{
         this.setState({
@@ -81,7 +78,7 @@ export default class Card extends Component {
     });
     $.ajax({
       url: 'http://localhost:3000/cardimage',
-      data: {id:this.props.id},
+      data: {id:this.props.item_id},
       method: "POST",
       success: (res)=>{
         let cur = res.results[0];
@@ -99,8 +96,6 @@ export default class Card extends Component {
               price: cur['original_price'],
               discountPrice: cur['sale_price']
             })
-
-
             break
           }
         }
@@ -111,6 +106,7 @@ export default class Card extends Component {
   }
   render() {
     const {error, isLoading, item, image, price, discountPrice, display, ratings } = this.state;
+    const cur = this.props.cur
     let rating = 0;
     let Star;
       if (Object.keys(ratings).length !== 0) {
@@ -140,12 +136,13 @@ export default class Card extends Component {
     return (
       <div class='card' >
         <img src = {image} onClick={this.handleClickOpen} ></img>
+        <div class="icon" onClick={()=>{this.props.add(this.props.item_id)}}>{this.props.icon}</div>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
         {Star}
         <br />
-        <SimpleDialog  open={this.state.display} onClose={this.handlClose} item={item}/>
+        <SimpleDialog  open={this.state.display} onClose={this.handlClose} item={item} cur ={cur}/>
       </div>
 
 
