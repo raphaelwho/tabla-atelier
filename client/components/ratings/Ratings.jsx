@@ -14,19 +14,23 @@ class Ratings extends React.Component {
       id: props.id,
       reviews: {}
     };
-    this.fetchRatings = this.fetchRatings.bind(this);
+    this.fetchReviews = this.fetchReviews.bind(this);
   }
 
-  fetchRatings(id) {
+  fetchReviews(id) {
     var successfulFetch = (response) => {
-      console.log(response);
+
       this.setState({reviews: response});
     };
+    var idData = JSON.stringify({id: id});
 
     $.ajax({
-      url: 'http://localhost:3000/ratings',
-      data: {id: id},
-      success: successfulFetch
+      url: 'http://localhost:3000/reviews',
+      type: 'POST',
+      data: idData,
+      success: successfulFetch,
+      contentType: 'application/json',
+      processData: false
     });
   }
 
@@ -41,7 +45,7 @@ class Ratings extends React.Component {
 
   componentDidMount() {
     console.log('component did mount');
-    this.fetchRatings(this.state.id);
+    this.fetchReviews(this.state.id);
   }
 
 }

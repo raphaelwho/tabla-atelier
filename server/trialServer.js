@@ -1,18 +1,21 @@
-const express = require('express')
-var bodyParser = require('body-parser')
-const app = express()
-const axios = require('axios')
-const port = 3000
-const Token = require('./server.config.js');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const express = require('express');
+var bodyParser = require('body-parser');
+const app = express();
+const axios = require('axios');
+const port = 3000;
+const token = require('./server.config.js');
+const cors = require('cors');
+
 app.use(express.static("./client/dist"));
-app.post('/related', (req, res) => {
+
+var jsonParser = bodyParser.json();
+
+/* app.post('/related', (req, res) => {
   let config = {
   method: 'GET',
   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id+'/related',
   headers: {
-    'Authorization': Token
+    'Authorization': token
   }
   };
   axios(config)
@@ -31,7 +34,7 @@ app.post('/card', (req, res) => {
   method: 'get',
   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id,
   headers: {
-    'Authorization': Token
+    'Authorization': token
   }
   };
 
@@ -50,7 +53,7 @@ app.post('/cardimage', (req, res) => {
   method: 'get',
   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id+'/styles',
   headers: {
-    'Authorization': Token
+    'Authorization': token
   }
   };
   axios(config)
@@ -68,7 +71,7 @@ app.post('/review/meta', (req, res) => {
   method: 'get',
   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id='+req.body.id,
   headers: {
-    'Authorization': Token
+    'Authorization': token
   }
   };
   axios(config)
@@ -80,15 +83,15 @@ app.post('/review/meta', (req, res) => {
   console.log(error);
   });
 
-})
+}) */
 
-app.get('/reviews', (req, res) => {
+app.post('/reviews', jsonParser, (req, res) => {
 
-  let config = {
+  var config = {
     method: 'GET',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${req.body.id}`,
     headers: {
-      'Authorization': Token
+      'Authorization': token.token
     }
   };
   axios(config)
@@ -100,7 +103,7 @@ app.get('/reviews', (req, res) => {
   console.log(error);
   });
 
-})
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
