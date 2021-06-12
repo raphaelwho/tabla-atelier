@@ -44,7 +44,6 @@ class Ratings extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component did mount');
     this.fetchReviews(this.state.id);
   }
 

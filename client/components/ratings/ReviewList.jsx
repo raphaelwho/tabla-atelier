@@ -22,7 +22,6 @@ var ReviewList = function (props) {
       }
     ]
   };
-  console.log(props);
   return (
     <div className="review-list-and-sorting">
       <div className="review-sorting">
