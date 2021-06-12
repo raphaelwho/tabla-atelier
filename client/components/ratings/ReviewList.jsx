@@ -22,8 +22,21 @@ var ReviewList = function (props) {
       }
     ]
   };
+  console.log(props);
   return (
-    <ReviewTile result={result} />
+    <div className="review-list-and-sorting">
+      <div className="review-sorting">
+        <h4>Lots of reviews, sorted by the Magic Filing Cabinet</h4>
+      </div>
+      {(props.reviews.results !== undefined) && (props.reviews.results.length > 0) === true &&
+        <div className="review-list">
+          <ReviewTile review={props.reviews.results[0]} />
+        </div>
+      }
+      <div className="review-controls">
+        <h4>Add new review here.</h4>
+      </div>
+    </div>
   );
 }
 
