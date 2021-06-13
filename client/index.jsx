@@ -5,13 +5,18 @@ import Stars from './components/shared/Stars.jsx';
 import ClickableStars from './components/shared/ClickableStars.jsx'
 import text, {CText, CTextDemoView} from './components/shared/CText.jsx';
 import Ratings from './components/ratings/Ratings.jsx';
+import Product from './components/product/Product.jsx';
+import Questions from './components/q&a/Questions.jsx';
+import Related from './components/related/Related.jsx';
+
+
 
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: 22124,
+      id: 22128,
     };
   }
 
