@@ -1,5 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
-
+.reviews{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1.5fr 7fr 1.5fr;
+  grid-template-areas:
+    "star-average review-sorting"
+    "bars-sliders review-list"
+    ". review-controls"
+}
+.review-list {
+  grid-area: review-list;
+}
+.review-controls {
+  grid-area: review-controls;
+}
+.star-average {
+  grid-area: star-average;
+}
+.bars-sliders {
+  grid-area: bars-sliders;
+}
 .reviewtile {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
