@@ -1,0 +1,23 @@
+.size-flexgrid {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 1rem;
+}
+
+.starButton {
+    width: 40px;
+    height: 40px;
+    border: solid black;
+    border-width: 1px;
+}
+
+.size-flexgrid {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+}
+
+.product-master-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 0;
+}

@@ -2,3 +2,5 @@ node_modules
 /client/dist/bundle.js
 /server/server.config.js
 /coverage
+server/config.js
+
