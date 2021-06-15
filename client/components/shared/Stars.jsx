@@ -7,8 +7,16 @@ var Stars = function (props) {
   var nearestQuarter = ((Math.floor(props.rating / 0.25)) * 0.25);
   var ratingPercentage = (nearestQuarter * 20);
 
+<<<<<<< HEAD
   //increase quarter star visibility, or in other words accounting for volume filled in star rather than width
 
+=======
+
+  //increase quarter star visibility, or in other words accounting for volume filled in star rather than width
+
+
+
+>>>>>>> d6b35909ed3f72f920de22f024753d990cb74d28
   if (nearestQuarter - Math.trunc(nearestQuarter) === 0.25) {
     ratingPercentage = ratingPercentage + 2.5;
   } else if (nearestQuarter - Math.trunc(nearestQuarter) === 0.75) {
