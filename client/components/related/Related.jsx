@@ -40,6 +40,7 @@ export default class Related extends Component {
       data: {id:this.props.id},
       method: "POST",
       success: (res)=>{
+        log(res)
         this.setState({
           isLoading : false,
           items: res
@@ -85,17 +86,22 @@ export default class Related extends Component {
       <div>
         <h1 style={{color:'gray'}}>RELATED PRODUCTS</h1>
         <Swiper {...params}>
-        {items.map(item =>(
+        {items.map(item_id =>(
           <div>
-            <Card item_id={item} cur={cur} add={this.addToMyoutfits} icon={<FaRegStar />}/>
+            <Card item_id={item_id} cur={cur} add={this.addToMyoutfits} icon={<FaRegStar />}/>
             </div>
             ))}
         </Swiper>
         <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
         <Swiper {...params}>
-        {myoutfits.map(item =>(
+        <div >
+          <div onClick={()=>this.addToMyoutfits(cur.id)}>
+          <Card item_id={cur.id} cur={'blank'} add ={()=>{}}/>
+          </div>
+        </div>
+        {myoutfits.map(item_id =>(
           <div>
-            <Card item_id={item} cur={cur} add={this.removeMyOutfit} icon={< CgCloseO />}/>
+            <Card item_id={item_id} cur={cur} add={this.removeMyOutfit} icon={< CgCloseO />}/>
             </div>
             ))}
         </Swiper>

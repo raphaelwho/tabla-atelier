@@ -16,9 +16,16 @@ function SimpleDialog(props) {
     onClose(selectedValue);
   };
   return (
-    <Dialog scroll='paper' onClose={handleClose} open={open}>
-      <DialogTitle><h2>Comparing</h2>
-      <div>{item.name}----{cur.name}</div>
+    <Dialog scroll='paper' onClose={handleClose} open={open} fullWidth
+    maxWidth="md">
+      <DialogTitle><div>Comparing</div>
+      <div style={{display: 'grid',
+            gridTemplateColumns: '30% 40% 30%'}}>
+      <div>{item.name}</div>
+      <div> </div>
+      <div style={{textAlign: 'right'}}>{cur.name}</div>
+      </div>
+
       </DialogTitle>
       <DialogContent>
       <Comparing item= {item} cur={cur}/>
@@ -105,6 +112,13 @@ export default class Card extends Component {
 
   }
   render() {
+    if (this.props.cur === 'blank') {
+      return <div class='card' >
+      <img src = {image} onClick={()=>{this.props.add(this.props.item_id)}} ></img>
+      <div>Add current product!</div>
+    </div>
+
+    }
     const {error, isLoading, item, image, price, discountPrice, display, ratings } = this.state;
     const cur = this.props.cur
     let rating = 0;
@@ -134,9 +148,9 @@ export default class Card extends Component {
         displayPrice= <div style = {{color: 'red'}}>${discountPrice} </div>
       }
     return (
-      <div class='card' >
+      <div className='card' >
         <img src = {image} onClick={this.handleClickOpen} ></img>
-        <div class="icon" onClick={()=>{this.props.add(this.props.item_id)}}>{this.props.icon}</div>
+        <div className="icon" onClick={()=>{this.props.add(this.props.item_id)}}>{this.props.icon}</div>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
