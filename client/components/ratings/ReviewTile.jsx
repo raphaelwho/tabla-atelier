@@ -5,12 +5,12 @@ import ReviewPictures from './ReviewPictures.jsx';
 var ReviewTile = function (props) {
   var titlewrap = false;
   var wrapCharacter = 0;
-  var reviewDate = new Date(props.result.date);
+  var reviewDate = new Date(props.review.date);
   var dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  if (props.result.summary.length > 60) {
+  if (props.review.summary.length > 60) {
     titlewrap = true;
     for (var i = 59; i >= 0; i--) {
-      if (props.result.summary[i] === ' ') {
+      if (props.review.summary[i] === ' ') {
         wrapCharacter = i;
         break;
       }
@@ -19,30 +19,30 @@ var ReviewTile = function (props) {
   return (
     <div className="reviewtile">
       {titlewrap
-        ? <h3 className="review-title bold">{props.result.summary.slice(0, wrapCharacter)}...</h3>
-        : <h3 className="review-title bold">{props.result.summary}</h3>
+        ? <h3 className="review-title bold">{props.review.summary.slice(0, wrapCharacter)}...</h3>
+        : <h3 className="review-title bold">{props.review.summary}</h3>
       }
       {titlewrap === true &&
-        <p className="review-titlewrap">...{props.result.summary.slice(wrapCharacter + 1)}</p>
+        <p className="review-titlewrap">...{props.review.summary.slice(wrapCharacter + 1)}</p>
       }
       <div className="review-stars">
-        <Stars rating={props.result.rating} />
+        <Stars rating={props.review.rating} />
       </div>
-      <p className="review-userdate">{props.result.reviewer_name}, {reviewDate.toLocaleDateString('en-US', dateOptions)}</p>
-      <p className="review-body">{props.result.body}</p>
-      {props.result.photos.length > 0 &&
-        <ReviewPictures photos={props.result.photos} />
+      <p className="review-userdate">{props.review.reviewer_name}, {reviewDate.toLocaleDateString('en-US', dateOptions)}</p>
+      <p className="review-body">{props.review.body}</p>
+      {props.review.photos.length > 0 &&
+        <ReviewPictures photos={props.review.photos} />
       }
-      {props.result.recommend === true &&
+      {props.review.recommend === true &&
         <p className="review-recommend">&#10003; I recommend this product</p>
       }
-      {props.result.response !== null &&
+      {props.review.response !== null &&
         <div className="review-response">
           <h4>Response:</h4>
-          <p>{props.result.response}</p>
+          <p>{props.review.response}</p>
         </div>
       }
-      <p className="review-helpfulness">Helpful? Yes ({props.result.helpfulness})  |  Report</p>
+      <p className="review-helpfulness">Helpful? Yes ({props.review.helpfulness})  |  Report</p>
     </div>
   );
 }

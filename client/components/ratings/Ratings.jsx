@@ -1,27 +1,52 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './ratings.css'
-import Bars from './Bars.jsx';
+import ReviewGraphics from './ReviewGraphics.jsx';
 import ReviewList from './ReviewList.jsx';
-import Sliders from './Sliders.jsx';
+import $ from 'jquery';
 
 import text, {CText, CTextDemoView} from '../shared/CText.jsx';
 
 class Ratings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      id: props.id,
+      reviews: {}
+    };
+    this.fetchReviews = this.fetchReviews.bind(this);
+  }
+
+  fetchReviews(id) {
+    var successfulFetch = (response) => {
+
+      this.setState({reviews: response});
+    };
+    var idData = JSON.stringify({id: id});
+
+    $.ajax({
+      url: 'http://localhost:3000/reviews',
+      type: 'POST',
+      data: idData,
+      success: successfulFetch,
+      contentType: 'application/json',
+      processData: false
+    });
   }
 
   render() {
     return (
       <div className="reviews">
-        <Bars percentage={50} />
-        <Sliders rating={2.5} />
-        <ReviewList />
+        <ReviewGraphics />
+        <ReviewList reviews={this.state.reviews} />
       </div>
     )
   }
+
+  componentDidMount() {
+    this.fetchReviews(this.state.id);
+  }
+
 }
 
 export default Ratings;
