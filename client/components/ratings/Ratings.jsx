@@ -11,18 +11,39 @@ class Ratings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.id,
-      reviews: {}
+      reviews: {results: []},
+      listControls: {
+        sortType: 'helpfulness', //options are relevance, date, helpfulness; default is relevance
+        reviewListEnd: 1
+      }
     };
+    this.sortReviews = this.sortReviews.bind(this);
+    this.moreReviews = this.moreReviews.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
+  }
+
+  sortReviews(reviewsResults) {
+    if (reviewsResults !== undefined && this.state.listControls.sortType === 'helpfulness') {
+      var sortedReviews = reviewsResults.slice();
+      sortedReviews.sort(function (a, b) {
+        return a.helpfulness - b.helpfulness;
+      });
+      sortedReviews.reverse();
+      return sortedReviews;
+    }
+  }
+
+  moreReviews() {
+    var lengthList = this.state.listControls.reviewListEnd + 2;
+    this.setState({listControls: {reviewListEnd: lengthList}})
   }
 
   fetchReviews(id) {
     var successfulFetch = (response) => {
-
-      this.setState({reviews: response});
+      var fetchAndSort = this.sortReviews(response.results);
+      this.setState({reviews: {results: fetchAndSort}});
     };
-    var idData = JSON.stringify({id: id});
+    var idData = JSON.stringify({id: this.props.id});
 
     $.ajax({
       url: 'http://localhost:3000/reviews',
@@ -38,7 +59,7 @@ class Ratings extends React.Component {
     return (
       <div className="reviews">
         <ReviewGraphics />
-        <ReviewList reviews={this.state.reviews} />
+        <ReviewList reviews={this.state.reviews} listControls={this.state.listControls} moreReviews={this.moreReviews} />
       </div>
     )
   }
