@@ -28,10 +28,8 @@ export default class Related extends Component {
 
   componentDidMount() {
     let myoutfits = JSON.parse(localStorage.getItem("myoutfits")|| '[]');
-    log(myoutfits)
-
     this.setState({myoutfits})
-    log('before render', myoutfits)
+
 
     axios.all([
       axios.post('http://localhost:3000/card',{id:this.props.id}),
@@ -73,15 +71,13 @@ export default class Related extends Component {
   removeMyOutfit(id) {
     let myoutfits = [...this.state.myoutfits.filter(item => item !== id)]
     localStorage.setItem('myoutfits',JSON.stringify(myoutfits) )
-    this.setState({ myoutfits})
-    this.setState({ rememberMe: true})
+    this.setState({myoutfits})
   }
   addToMyoutfits(id) {
     if (!this.state.myoutfits.includes(id)) {
       let myoutfits = [...this.state.myoutfits,id]
       localStorage.setItem('myoutfits',JSON.stringify(myoutfits) )
-      this.setState({ myoutfits })
-      this.setState({ rememberMe: true})
+      this.setState({myoutfits })
     }
   }
 
