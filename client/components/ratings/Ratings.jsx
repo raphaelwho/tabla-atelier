@@ -13,7 +13,7 @@ class Ratings extends React.Component {
     this.state = {
       reviews: {results: []},
       listControls: {
-        sortType: 'helpfulness', //options are relevance, date, helpfulness; default is relevance
+        sortType: 'relevance', //options are relevance, date, helpfulness; default is relevance
         reviewListEnd: 1
       }
     };
@@ -29,6 +29,22 @@ class Ratings extends React.Component {
         return a.helpfulness - b.helpfulness;
       });
       sortedReviews.reverse();
+      return sortedReviews;
+    }
+    else if (reviewsResults !== undefined && this.state.listControls.sortType === 'date') {
+      var sortedReviews = reviewsResults.slice();
+      sortedReviews.sort(function (a, b) {
+        return ((Date.now() - Date.parse(a.date)) - (Date.now() - Date.parse(b.date))) / 2592000000;
+      });
+      return sortedReviews;
+    }
+    else if (reviewsResults !== undefined && this.state.listControls.sortType === 'relevance') {
+      var sortedReviews = reviewsResults.slice();
+      sortedReviews.sort(function (a, b) {
+        return (24.8492 - (5.22794 * Math.log(1.18379 - 5.18465 * (((Date.now() - Date.parse(a.date)) - (Date.now() - Date.parse(b.date))) / 2592000000)))) * (a.helpfulness - b.helpfulness);
+      });
+      sortedReviews.reverse();
+      console.log(sortedReviews);
       return sortedReviews;
     }
   }
