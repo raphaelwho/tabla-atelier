@@ -174,7 +174,10 @@ export default class Card extends Component {
       if (discountPrice === null )  {
         displayPrice= <div>${price}</div>
       } else {
-        displayPrice= <div style = {{color: 'red'}}>${discountPrice} </div>
+        displayPrice= <div style={{display: 'flex'}}>
+        <div style = {{color: 'red'}}>${discountPrice} </div>
+        <div style ={{textDecoration: 'line-through'}}>  ${price}</div>
+        </div>
       }
     return (
 

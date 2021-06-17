@@ -9,7 +9,6 @@ import {CgCloseO } from 'react-icons/cg';
 import axios from 'axios';
 
 export default class Related extends Component {
-  Data
   constructor(props){
     super(props);
     this.state={
