@@ -6,8 +6,10 @@ import 'swiper/css/swiper.css';
 import './button.css'
 import {FaRegStar } from 'react-icons/fa';
 import {CgCloseO } from 'react-icons/cg';
+import axios from 'axios';
 
 export default class Related extends Component {
+  Data
   constructor(props){
     super(props);
     this.state={
@@ -16,6 +18,7 @@ export default class Related extends Component {
       items : [],
       cur : null,
       myoutfits:[],
+      rememberMe: false
 
     }
     this.addToMyoutfits=this.addToMyoutfits.bind(this)
@@ -24,43 +27,61 @@ export default class Related extends Component {
   }
 
   componentDidMount() {
-    $.ajax({
-      url: 'http://localhost:3000/card',
-      data: {id:this.props.id},
-      method: "POST",
-      success: (res)=>{
-        this.setState({
-          cur: res
-        })
-      }
-    })
+    let myoutfits = JSON.parse(localStorage.getItem("myoutfits")|| '[]');
+    log(myoutfits)
 
-    $.ajax({
-      url: 'http://localhost:3000/related',
-      data: {id:this.props.id},
-      method: "POST",
-      success: (res)=>{
-        this.setState({
-          isLoading : false,
-          items: res
-        })
-      }
-    })
+    this.setState({myoutfits})
+    log('before render', myoutfits)
+
+    axios.all([
+      axios.post('http://localhost:3000/card',{id:this.props.id}),
+      axios.post('http://localhost:3000/related',{id:this.props.id})
+    ]).then(axios.spread((data1, data2) => {
+      this.setState({
+        cur: data1.data,
+        isLoading : false,
+        items: data2.data
+      })
+    }));
+
+    // $.ajax({'http://localhost:3000/card',
+    //   url: 'http://localhost:3000/card',
+    //   data: {id:this.props.id},
+    //   method: "POST",
+    //   success: (res)=>{
+    //     this.setState({
+    //       cur: res
+    //     })
+    //   }
+    // })
+
+    // $.ajax({
+    //   url: 'http://localhost:3000/related',
+    //   data: {id:this.props.id},
+    //   method: "POST",
+    //   success: (res)=>{
+    //     this.setState({
+    //       isLoading : false,
+    //       items: res
+    //     })
+    //   }
+    // })
 
 
 
   }
   removeMyOutfit(id) {
-    let myoutfits =  this.state.myoutfits.filter(item => item !== id)
-    log('remove', myoutfits)
+    let myoutfits = [...this.state.myoutfits.filter(item => item !== id)]
+    localStorage.setItem('myoutfits',JSON.stringify(myoutfits) )
     this.setState({ myoutfits})
-    this.setState({ myoutfits})
+    this.setState({ rememberMe: true})
   }
   addToMyoutfits(id) {
     if (!this.state.myoutfits.includes(id)) {
       let myoutfits = [...this.state.myoutfits,id]
-      log('add', myoutfits)
+      localStorage.setItem('myoutfits',JSON.stringify(myoutfits) )
       this.setState({ myoutfits })
+      this.setState({ rememberMe: true})
     }
   }
 
