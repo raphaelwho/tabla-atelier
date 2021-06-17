@@ -51,12 +51,15 @@ export default class Related extends Component {
 
   }
   removeMyOutfit(id) {
-    const myoutfits =  this.state.myoutfits.filter(item => item !== id)
-    this.setState({ myoutfits })
+    let myoutfits =  this.state.myoutfits.filter(item => item !== id)
+    log('remove', myoutfits)
+    this.setState({ myoutfits})
+    this.setState({ myoutfits})
   }
   addToMyoutfits(id) {
     if (!this.state.myoutfits.includes(id)) {
-      const myoutfits = [...this.state.myoutfits,id]
+      let myoutfits = [...this.state.myoutfits,id]
+      log('add', myoutfits)
       this.setState({ myoutfits })
     }
   }
@@ -64,6 +67,8 @@ export default class Related extends Component {
   render() {
 
     const {error, isLoading, items, cur,myoutfits } = this.state;
+    log('render',myoutfits)
+
 
     if (error) {
       return <div>Error: {error} </div> ;
@@ -77,7 +82,6 @@ export default class Related extends Component {
           prevEl: '.swiper-button-prev'
         },
         observer: true,
-        observeParents: true,
       }
 
 
@@ -85,17 +89,22 @@ export default class Related extends Component {
       <div>
         <h1 style={{color:'gray'}}>RELATED PRODUCTS</h1>
         <Swiper {...params}>
-        {items.map(item =>(
+        {items.map(item_id =>(
           <div>
-            <Card item_id={item} cur={cur} add={this.addToMyoutfits} icon={<FaRegStar />}/>
+            <Card item_id={item_id} cur={cur} add={()=>this.addToMyoutfits(item_id)} icon={<FaRegStar />}/>
             </div>
             ))}
         </Swiper>
         <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
         <Swiper {...params}>
-        {myoutfits.map(item =>(
-          <div>
-            <Card item_id={item} cur={cur} add={this.removeMyOutfit} icon={< CgCloseO />}/>
+        <div >
+          <div onClick={()=>this.addToMyoutfits(cur.id)}>
+          <Card item_id={cur.id} cur={'blank'} add ={()=>{}}/>
+          </div>
+        </div>
+        {myoutfits.map( (item_id, index) =>(
+            <div>
+            <Card key={item_id}  item_id={item_id} cur={cur} add={()=>this.removeMyOutfit(item_id)} icon={< CgCloseO />}/>
             </div>
             ))}
         </Swiper>
