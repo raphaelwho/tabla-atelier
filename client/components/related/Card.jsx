@@ -148,15 +148,17 @@ export default class Card extends Component {
         displayPrice= <div style = {{color: 'red'}}>${discountPrice} </div>
       }
     return (
+      <div>
       <div className='card' >
         <img src = {image} onClick={this.handleClickOpen} ></img>
-        <div className="icon" onClick={()=>{this.props.add(this.props.item_id)}}>{this.props.icon}</div>
+        <div className="icon" onClick={()=>{this.props.add()}}>{this.props.icon}</div>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
         {Star}
         <br />
         <SimpleDialog  open={this.state.display} onClose={this.handlClose} item={item} cur ={cur}/>
+      </div>
       </div>
 
 
