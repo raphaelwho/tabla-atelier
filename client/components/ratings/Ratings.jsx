@@ -12,18 +12,17 @@ class Ratings extends React.Component {
     super(props);
     this.state = {
       reviews: {results: []},
-      listControls: {
-        sortType: 'relevance', //options are relevance, date, helpfulness; default is relevance
-        reviewListEnd: 1
-      }
+      sortType: 'relevance', //options are relevance, date, helpfulness; default is relevance
+      reviewListEnd: 1
     };
     this.sortReviews = this.sortReviews.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
+    this.changeSort = this.changeSort.bind(this);
   }
 
-  sortReviews(reviewsResults) {
-    if (reviewsResults !== undefined && this.state.listControls.sortType === 'helpfulness') {
+  sortReviews(reviewsResults, sortType = this.state.sortType) {
+    if (reviewsResults !== undefined && sortType === 'helpfulness') {
       var sortedReviews = reviewsResults.slice();
       sortedReviews.sort(function (a, b) {
         return a.helpfulness - b.helpfulness;
@@ -31,27 +30,44 @@ class Ratings extends React.Component {
       sortedReviews.reverse();
       return sortedReviews;
     }
-    else if (reviewsResults !== undefined && this.state.listControls.sortType === 'date') {
+    else if (reviewsResults !== undefined && sortType === 'date') {
       var sortedReviews = reviewsResults.slice();
       sortedReviews.sort(function (a, b) {
         return ((Date.now() - Date.parse(a.date)) - (Date.now() - Date.parse(b.date))) / 2592000000;
       });
       return sortedReviews;
     }
-    else if (reviewsResults !== undefined && this.state.listControls.sortType === 'relevance') {
+    else if (reviewsResults !== undefined && sortType === 'relevance') {
       var sortedReviews = reviewsResults.slice();
       sortedReviews.sort(function (a, b) {
         return (24.8492 - (5.22794 * Math.log(1.18379 - 5.18465 * (((Date.now() - Date.parse(a.date)) - (Date.now() - Date.parse(b.date))) / 2592000000)))) * (a.helpfulness - b.helpfulness);
       });
       sortedReviews.reverse();
-      console.log(sortedReviews);
       return sortedReviews;
     }
   }
 
+  changeSort(event) {
+    var newSort = event.target.value;
+    var sorted = this.sortReviews(this.state.reviews.results, newSort);
+    if (newSort === 'relevance') {
+      this.setState({
+        reviews: {results: sorted},
+        sortType: 'relevance'});
+    } else if (newSort === 'helpfulness') {
+      this.setState({
+        reviews: {results: sorted},
+        sortType: 'helpfulness'});
+    } else if (newSort === 'date') {
+      this.setState({
+        reviews: {results: sorted},
+        sortType: 'date'});
+    }
+  }
+
   moreReviews() {
-    var lengthList = this.state.listControls.reviewListEnd + 2;
-    this.setState({listControls: {reviewListEnd: lengthList}})
+    var lengthList = this.state.reviewListEnd + 2;
+    this.setState({reviewListEnd: lengthList});
   }
 
   fetchReviews(id) {
@@ -75,7 +91,7 @@ class Ratings extends React.Component {
     return (
       <div className="reviews">
         <ReviewGraphics />
-        <ReviewList reviews={this.state.reviews} listControls={this.state.listControls} moreReviews={this.moreReviews} />
+        <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} sortTypeUnselected={this.state.sortTypeUnselected} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} />
       </div>
     )
   }
