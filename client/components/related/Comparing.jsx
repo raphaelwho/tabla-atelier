@@ -1,5 +1,6 @@
 import React from 'react'
-// import GrCheckmark from 'react-icons/gr';
+import { GrCheckmark } from "react-icons/gr";
+
 
 export default function Comparing(props) {
   const {item, cur } = props;
@@ -7,8 +8,8 @@ export default function Comparing(props) {
   for (let i=0; i<item.features.length; i++) {
     let key = item.features[i].feature
     let value = item.features[i].value
-    if (value== null) value = ' '
-    // if (value === 'true') value = <GrCheckmark  />
+    if (value == null) value = ' '
+    if (value === 'true') value = <GrCheckmark  />
     Comparing_table[key]=Comparing_table[key] || {'left':' ','right':' '};
     Comparing_table[key]['left']=value
 
@@ -16,6 +17,7 @@ export default function Comparing(props) {
   for (let i=0; i<cur.features.length; i++) {
     let key = cur.features[i].feature
     let value = cur.features[i].value
+    if (value === 'true') value = <GrCheckmark />
     if (value== null) value = ' '
     Comparing_table[key]=Comparing_table[key] || {'left':' ','right':' '};
     Comparing_table[key]['right']=value

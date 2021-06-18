@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import $ from 'jquery';
+import axios from 'axios';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Comparing from "./Comparing.jsx" ;
-import {FaRegStar } from 'react-icons/fa';
 import './Card.css';
 
 
@@ -61,36 +60,19 @@ export default class Card extends Component {
 
 
   componentDidMount() {
-    $.ajax({
-      url: 'http://localhost:3000/card',
-      data: {id:this.props.item_id},
-      method: "POST",
-      success: (res)=>{
+    axios.all([
+      axios.post('http://localhost:3000/card',{id:this.props.item_id}),
+      axios.post('http://localhost:3000/review/meta',{id:this.props.item_id}),
+      axios.post('http://localhost:3000/cardimage',{id:this.props.item_id})
+    ]).then(axios.spread((data1, data2,data3) => {
+      let res = data3.data;
+      let cur = res.results[0];
         this.setState({
           isLoading : false,
-          item: res,
-          price: res.default_price
-        })
-      }
-    });
-    $.ajax({
-      url: 'http://localhost:3000/review/meta',
-      data: {id:this.props.item_id},
-      method: "POST",
-      success: (res)=>{
-        this.setState({
-          ratings: res.ratings
-        })
-      }
-    });
-    $.ajax({
-      url: 'http://localhost:3000/cardimage',
-      data: {id:this.props.item_id},
-      method: "POST",
-      success: (res)=>{
-        let cur = res.results[0];
-        this.setState({
+          item: data1.data,
+          price: data1.data.default_price,
           image: cur.photos[0].thumbnail_url,
+          ratings: data2.data.ratings,
           price: cur['original_price'],
           discountPrice: cur['sale_price']
         })
@@ -107,8 +89,55 @@ export default class Card extends Component {
           }
         }
 
-      }
-    });
+    }));
+    // $.ajax({
+    //   url: 'http://localhost:3000/card',
+    //   data: {id:this.props.item_id},
+    //   method: "POST",
+    //   success: (res)=>{
+    //     this.setState({
+    //       isLoading : false,
+    //       item: res,
+    //       price: res.default_price
+    //     })
+    //   }
+    // });
+    // $.ajax({
+    //   url: 'http://localhost:3000/review/meta',
+    //   data: {id:this.props.item_id},
+    //   method: "POST",
+    //   success: (res)=>{
+    //     this.setState({
+    //       ratings: res.ratings
+    //     })
+    //   }
+    // });
+    // $.ajax({
+    //   url: 'http://localhost:3000/cardimage',
+    //   data: {id:this.props.item_id},
+    //   method: "POST",
+    //   success: (res)=>{
+    //     let cur = res.results[0];
+    //     this.setState({
+    //       image: cur.photos[0].thumbnail_url,
+    //       price: cur['original_price'],
+    //       discountPrice: cur['sale_price']
+    //     })
+    //     for (let i=0; i<res.results.length;i++) {
+    //       cur = res.results[i];
+    //       // console.log(this.props.id,cur)
+    //       if (cur['default?']){
+    //         this.setState({
+    //           image: cur.photos[0].thumbnail_url,
+    //           price: cur['original_price'],
+    //           discountPrice: cur['sale_price']
+    //         })
+    //         break
+    //       }
+    //     }
+
+    //   }
+    // });
 
   }
   render() {
@@ -145,13 +174,20 @@ export default class Card extends Component {
       if (discountPrice === null )  {
         displayPrice= <div>${price}</div>
       } else {
-        displayPrice= <div style = {{color: 'red'}}>${discountPrice} </div>
+        displayPrice= <div style={{display: 'flex'}}>
+        <div style = {{color: 'red'}}>${discountPrice} </div>
+        <div style ={{textDecoration: 'line-through'}}>  ${price}</div>
+        </div>
       }
     return (
-      <div>
+
       <div className='card' >
         <img src = {image} onClick={this.handleClickOpen} ></img>
-        <div className="icon" onClick={()=>{this.props.add()}}>{this.props.icon}</div>
+        <div className="icon" onClick={()=>{
+
+          this.props.add();
+
+        }}>{this.props.icon}</div>
         <div>{item.category}</div>
         <div>{item.name}</div>
         <div>{displayPrice}</div>
@@ -159,7 +195,7 @@ export default class Card extends Component {
         <br />
         <SimpleDialog  open={this.state.display} onClose={this.handlClose} item={item} cur ={cur}/>
       </div>
-      </div>
+
 
 
     )
