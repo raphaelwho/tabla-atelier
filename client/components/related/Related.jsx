@@ -54,7 +54,7 @@ export default class Related extends Component {
 
   render() {
     const {error, isLoading, items, cur, myoutfits} = this.state;
-    log('render', myoutfits);
+
 
 
     if (error) {
