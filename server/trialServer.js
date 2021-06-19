@@ -87,17 +87,32 @@ app.post('/review/meta', (req, res) => {
 
 app.post('/reviews', jsonParser, (req, res) => {
 
-  var config = {
+  var configGetReviewsById = {
     method: 'GET',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${req.body.id}`,
     headers: {
       'Authorization': token.token
     }
   };
-  axios(config)
-  .then(function (response) {
+  var configGetProductById = {
+    method: 'GET',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.body.id}`,
+    headers: {
+      'Authorization': token.token
+    }
+  };
 
-    res.send(response.data)
+  var getReviewsById = () => {
+    return axios(configGetReviewsById);
+  };
+  var getProductById = () => {
+    return axios(configGetProductById);
+  };
+  console.log(req.body.id);
+  Promise.all([getReviewsById(), getProductById()])
+  .then(function (response) {
+    response[0].data.name = response[1].data.name;
+    res.send(response[0].data);
   })
   .catch(function (error) {
   console.log(error);

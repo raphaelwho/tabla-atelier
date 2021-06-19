@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReviewTile from './ReviewTile.jsx';
+import AddReview from './AddReview.jsx';
 
 var ReviewList = function (props) {
     console.log(props);
@@ -27,8 +28,10 @@ var ReviewList = function (props) {
         })
         }
         <div className="review-controls">
-        <button onClick={props.moreReviews}>More Reviews</button>
-          <h4>Add new review here.</h4>
+        <button onClick={props.moreReviews}>MORE REVIEWS</button>
+        <button onClick={props.changeAddReviewDisplay}>ADD A REVIEW +</button>
+
+          <AddReview changeAddReviewDisplay={props.changeAddReviewDisplay} addReviewDisplay={props.addReviewDisplay} productName={props.productName} addReviewRating={props.addReviewRating} changeAddReviewRating={props.changeAddReviewRating} />
         </div>
       </div>
     );
