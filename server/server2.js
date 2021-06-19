@@ -22,6 +22,7 @@ app.post('/related', (req, res) => {
   })
   .catch(function (error) {
     console.log(error);
+    res.end()
   });
 })
 app.post('/card', (req, res) => {
@@ -40,6 +41,7 @@ app.post('/card', (req, res) => {
   })
   .catch(function (error) {
   console.log(error);
+  res.end()
   });
 
 })
@@ -57,6 +59,7 @@ app.post('/cardimage', (req, res) => {
   })
   .catch(function (error) {
   console.log(error);
+  res.end()
   });
 
 })
@@ -74,6 +77,7 @@ app.post('/review/meta', (req, res) => {
   })
   .catch(function (error) {
   console.log(error);
+  res.end()
   });
 
 })
@@ -91,6 +95,7 @@ app.post('/reviews', (req, res) => {
   })
   .catch(function (error) {
   console.log(error);
+  res.end()
   });
 });
 
