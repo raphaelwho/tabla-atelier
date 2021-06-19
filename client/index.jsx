@@ -24,12 +24,6 @@ class App extends React.Component {
 
     return (
     <div>
-<<<<<<< HEAD
-=======
-      <Product />
-      <Related id={this.state.id}/>
-      <Questions />
->>>>>>> main
       <Ratings id={this.state.id}/>
     </div>);
 

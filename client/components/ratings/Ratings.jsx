@@ -25,6 +25,16 @@ class Ratings extends React.Component {
     this.changeSort = this.changeSort.bind(this);
     this.changeAddReviewDisplay = this.changeAddReviewDisplay.bind(this);
     this.changeAddReviewRating = this.changeAddReviewRating.bind(this);
+    this.addReviewToggleModal = this.addReviewToggleModal.bind(this);
+
+
+  }
+
+  addReviewToggleModal () {
+    var modal = document.querySelector("#modal");
+    var modalOverlay = document.querySelector("#modal-overlay");
+    modal.classList.toggle("closed");
+    modalOverlay.classList.toggle("closed");
   }
 
   changeAddReviewDisplay () {
@@ -119,7 +129,7 @@ class Ratings extends React.Component {
     return (
       <div className="reviews">
         <ReviewGraphics />
-        <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} sortTypeUnselected={this.state.sortTypeUnselected} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} addReviewDisplay={this.state.addReviewDisplay} changeAddReviewDisplay={this.changeAddReviewDisplay} productName={this.state.productName} addReviewRating={this.state.addReviewRating} changeAddReviewRating={this.changeAddReviewRating} />
+        <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} sortTypeUnselected={this.state.sortTypeUnselected} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} addReviewDisplay={this.state.addReviewDisplay} changeAddReviewDisplay={this.changeAddReviewDisplay} productName={this.state.productName} addReviewRating={this.state.addReviewRating} changeAddReviewRating={this.changeAddReviewRating} addReviewToggleModal={this.addReviewToggleModal} />
       </div>
     )
   }
