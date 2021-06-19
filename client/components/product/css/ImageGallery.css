@@ -1,0 +1,8 @@
+.featured {
+    display: inline-block;
+}
+
+.featured-image {
+    min-width: 98%;
+    max-height: 500px;
+}

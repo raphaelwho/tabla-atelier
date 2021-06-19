@@ -7,6 +7,7 @@ import CButton from '../shared/CButton.jsx'
 import ClickableStars from '../shared/ClickableStars.jsx'
 import './css/Product.css'
 import { CText } from '../shared/CText.jsx';
+import ImageGallery from './ImageGallery.jsx'
 
 class Product extends React.Component {
     constructor(props) {
@@ -20,8 +21,8 @@ class Product extends React.Component {
     render() {
         return(
             <div className="product-master-grid">
-                <div className="leading">
-                    <CText text="WIP" size={2} />
+                <div className="leading" >
+                    <ImageGallery />
                 </div>
 
                 <div classname="trailing">
