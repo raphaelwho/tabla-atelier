@@ -1,4 +1,6 @@
 import React from 'react'
+import { GrCheckmark } from "react-icons/gr";
+
 
 export default function Comparing(props) {
   const {item, cur } = props;
@@ -6,14 +8,18 @@ export default function Comparing(props) {
   for (let i=0; i<item.features.length; i++) {
     let key = item.features[i].feature
     let value = item.features[i].value
-    Comparing_table[key]=Comparing_table[key] || {'left':undefined,'right':undefined};
+    if (value == null) value = ' '
+    if (value === 'true') value = <GrCheckmark  />
+    Comparing_table[key]=Comparing_table[key] || {'left':' ','right':' '};
     Comparing_table[key]['left']=value
 
   }
   for (let i=0; i<cur.features.length; i++) {
     let key = cur.features[i].feature
     let value = cur.features[i].value
-    Comparing_table[key]=Comparing_table[key] || {'left':undefined,'right':undefined};
+    if (value === 'true') value = <GrCheckmark />
+    if (value== null) value = ' '
+    Comparing_table[key]=Comparing_table[key] || {'left':' ','right':' '};
     Comparing_table[key]['right']=value
   }
 
@@ -22,9 +28,11 @@ export default function Comparing(props) {
     <div>
     {Object.keys(Comparing_table).map(key=>{
         return (
-          <div>
-          <div>{Comparing_table[key]['left']|| 'Null'} ---- {key} ----{Comparing_table[key]['right']||'Null'}</div>
-          <br/>
+          <div style={{display: 'grid',
+            gridTemplateColumns: '30% 40% 30%'}}>
+          <div>{Comparing_table[key]['left']|| 'Null'} </div>
+            <div style={{textAlign:'center'}}> {key} </div>
+            <div style={{textAlign:'right'}}>{Comparing_table[key]['right']||'Null'}</div>
           </div>
         )
     })}

@@ -6,6 +6,7 @@ import 'swiper/css/swiper.css';
 import './button.css'
 import {FaRegStar } from 'react-icons/fa';
 import {CgCloseO } from 'react-icons/cg';
+import axios from 'axios';
 
 export default class Related extends Component {
   constructor(props){
@@ -16,6 +17,7 @@ export default class Related extends Component {
       items : [],
       cur : null,
       myoutfits:[],
+      rememberMe: false
 
     }
     this.addToMyoutfits=this.addToMyoutfits.bind(this)
@@ -24,47 +26,66 @@ export default class Related extends Component {
   }
 
   componentDidMount() {
-    $.ajax({
-      url: 'http://localhost:3000/card',
-      data: {id:this.props.id},
-      method: "POST",
-      success: (res)=>{
-        this.setState({
-          cur: res
-        })
-      }
-    })
+    let myoutfits = JSON.parse(localStorage.getItem("myoutfits")|| '[]');
+    this.setState({myoutfits})
 
-    $.ajax({
-      url: 'http://localhost:3000/related',
-      data: {id:this.props.id},
-      method: "POST",
-      success: (res)=>{
-        this.setState({
-          isLoading : false,
-          items: res
-        })
-      }
-    })
+
+    axios.all([
+      axios.post('http://localhost:3000/card',{id:this.props.id}),
+      axios.post('http://localhost:3000/related',{id:this.props.id})
+    ]).then(axios.spread((data1, data2) => {
+      this.setState({
+        cur: data1.data,
+        isLoading : false,
+        items: data2.data
+      })
+    }));
+
+    // $.ajax({'http://localhost:3000/card',
+    //   url: 'http://localhost:3000/card',
+    //   data: {id:this.props.id},
+    //   method: "POST",
+    //   success: (res)=>{
+    //     this.setState({
+    //       cur: res
+    //     })
+    //   }
+    // })
+
+    // $.ajax({
+    //   url: 'http://localhost:3000/related',
+    //   data: {id:this.props.id},
+    //   method: "POST",
+    //   success: (res)=>{
+    //     this.setState({
+    //       isLoading : false,
+    //       items: res
+    //     })
+    //   }
+    // })
 
 
 
   }
   removeMyOutfit(id) {
-    const myoutfits =  this.state.myoutfits.filter(item => item !== id)
-    this.setState({ myoutfits })
+    let myoutfits = [...this.state.myoutfits.filter(item => item !== id)]
+    localStorage.setItem('myoutfits',JSON.stringify(myoutfits) )
+    this.setState({myoutfits})
   }
   addToMyoutfits(id) {
     if (!this.state.myoutfits.includes(id)) {
-      const myoutfits = [...this.state.myoutfits,id]
-      this.setState({ myoutfits })
+      let myoutfits = [...this.state.myoutfits,id]
+      localStorage.setItem('myoutfits',JSON.stringify(myoutfits) )
+      this.setState({myoutfits })
     }
   }
 
   render() {
 
     const {error, isLoading, items, cur,myoutfits } = this.state;
-    log(myoutfits)
+    log('render',myoutfits)
+
+
     if (error) {
       return <div>Error: {error} </div> ;
     } else if (isLoading) {
@@ -77,7 +98,6 @@ export default class Related extends Component {
           prevEl: '.swiper-button-prev'
         },
         observer: true,
-        observeParents: true,
       }
 
 
@@ -85,17 +105,22 @@ export default class Related extends Component {
       <div>
         <h1 style={{color:'gray'}}>RELATED PRODUCTS</h1>
         <Swiper {...params}>
-        {items.map(item =>(
+        {items.map(item_id =>(
           <div>
-            <Card item_id={item} cur={cur} add={this.addToMyoutfits} icon={<FaRegStar />}/>
+            <Card item_id={item_id} cur={cur} add={()=>this.addToMyoutfits(item_id)} icon={<FaRegStar />}/>
             </div>
             ))}
         </Swiper>
         <h1 style={{color:'gray'}}>YOUR OURFIT</h1>
         <Swiper {...params}>
-        {myoutfits.map(item =>(
-          <div>
-            <Card item_id={item} cur={cur} add={this.removeMyOutfit} icon={< CgCloseO />}/>
+        <div >
+          <div onClick={()=>this.addToMyoutfits(cur.id)}>
+          <Card item_id={cur.id} cur={'blank'} add ={()=>{}}/>
+          </div>
+        </div>
+        {myoutfits.map( (item_id, index) =>(
+            <div>
+            <Card key={item_id}  item_id={item_id} cur={cur} add={()=>this.removeMyOutfit(item_id)} icon={< CgCloseO />}/>
             </div>
             ))}
         </Swiper>

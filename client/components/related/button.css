@@ -1,3 +1,20 @@
 .swiper-button-disabled {
   visibility: hidden;
 }
+.swiper-button-next::after {
+  background:linear-gradient(to right, rgba(255,255,255,0),white);
+  padding-right:10px;
+  padding-top:200px;
+  padding-left:30px;
+  padding-bottom:200px;
+  color: black;
+  font-size: 15px;
+}
+.swiper-button-prev::after {
+  color: black;
+  font-size: 15px;
+}
+.swiper-container {
+  width: 80%;
+  height: 100%;
+}

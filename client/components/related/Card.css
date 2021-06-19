@@ -9,6 +9,7 @@
   height:220px;
 }
 .icon {
+  background-color: rgba(163, 163, 165, 0.205);
   position: absolute;
   right: 10%;
   top: 8%;
