@@ -3,7 +3,6 @@
     width: 40px;
     background-color: #bbb;
     border-radius: 50%;
-
     border-style: solid;
     border-color: black;
     border-width: 1.5px;
@@ -20,6 +19,10 @@
     display: inline-block;
     animation-name: fadein;
     animation-duration: 1s;
+}
+
+.style-div {
+    z-index: 100;
 }
 
 .stylesgrid {
