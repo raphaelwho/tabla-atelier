@@ -1,5 +1,9 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+var multer = require('multer');
+var storage = multer.memoryStorage()
+var upload = multer({ storage: storage })
+var FormData = require('form-data');
 const app = express();
 const axios = require('axios');
 const port = 3000;
@@ -10,80 +14,32 @@ app.use(express.static("./client/dist"));
 
 var jsonParser = bodyParser.json();
 
-/* app.post('/related', (req, res) => {
-  let config = {
-  method: 'GET',
-  url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id+'/related',
-  headers: {
-    'Authorization': token
-  }
-  };
-  axios(config)
-  .then(function (response) {
-    //console.log(JSON.stringify(response.data));
-    res.send(response.data)
+app.post('/uploadreviewimage', upload.single('image'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+
+  var multipart = new FormData();
+  multipart.append('file', req.file.buffer);
+  multipart.append('upload_preset', token.cloudinaryUploadPreset);
+  multipart.append('name', req.file.originalname);
+  multipart.append('cloud_name', 'dilcl3ahb');
+
+  console.log(multipart);
+
+    axios({
+    method: 'POST',
+    url: 'https://api.cloudinary.com/v1_1/dilcl3ahb/image/upload',
+    data: multipart
   })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .then(function (response) {
+      console.log(response);
+      console.log('response data:', response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+      });
 
 })
-
-app.post('/card', (req, res) => {
-  let config = {
-  method: 'get',
-  url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id,
-  headers: {
-    'Authorization': token
-  }
-  };
-
-  axios(config)
-  .then(function (response) {
-    // console.log(JSON.stringify(response.data));
-    res.send(response.data)
-  })
-  .catch(function (error) {
-  console.log(error);
-  });
-
-})
-app.post('/cardimage', (req, res) => {
-  let config = {
-  method: 'get',
-  url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.body.id+'/styles',
-  headers: {
-    'Authorization': token
-  }
-  };
-  axios(config)
-  .then(function (response) {
-    res.send(response.data)
-  })
-  .catch(function (error) {
-  console.log(error);
-  });
-
-})
-app.post('/review/meta', (req, res) => {
-
-  let config = {
-  method: 'get',
-  url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id='+req.body.id,
-  headers: {
-    'Authorization': token
-  }
-  };
-  axios(config)
-  .then(function (response) {
-
-    res.send(response.data)
-  })
-  .catch(function (error) {
-  console.log(error);
-  });
-
-}) */
 
 app.post('/reviews', jsonParser, (req, res) => {
 
@@ -101,6 +57,13 @@ app.post('/reviews', jsonParser, (req, res) => {
       'Authorization': token.token
     }
   };
+  var configGetReviewsMetaById = {
+    method: 'GET',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${req.body.id}`,
+    headers: {
+      'Authorization': token.token
+    }
+  };
 
   var getReviewsById = () => {
     return axios(configGetReviewsById);
@@ -108,10 +71,16 @@ app.post('/reviews', jsonParser, (req, res) => {
   var getProductById = () => {
     return axios(configGetProductById);
   };
-  console.log(req.body.id);
-  Promise.all([getReviewsById(), getProductById()])
+  var getReviewsMetaById = () => {
+    return axios(configGetReviewsMetaById);
+  };
+
+  Promise.all([getReviewsById(), getProductById(), getReviewsMetaById()])
   .then(function (response) {
     response[0].data.name = response[1].data.name;
+    response[0].data.ratings = response[2].data.ratings;
+    response[0].data.recommended = response[2].data.recommended;
+    response[0].data.characteristics = response[2].data.characteristics;
     res.send(response[0].data);
   })
   .catch(function (error) {
