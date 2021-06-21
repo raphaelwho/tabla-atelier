@@ -23,7 +23,6 @@ class ProductInfo extends React.Component {
     }
 
     render() {
-        log(this.props.product);
         return (
             <div className="productinfo">
                 {this.getProductRating()}

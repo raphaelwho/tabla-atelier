@@ -10,7 +10,6 @@ class Dropdown extends React.Component {
         if (this.props.onChange) {
             this.props.onChange(event);
         }
-
     }
 
     renderOptions() {

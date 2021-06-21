@@ -2,8 +2,8 @@ import React from 'react';
 import './css/ImageGallery.css';
 
 class ImageGallery extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             expanded: false
@@ -13,10 +13,9 @@ class ImageGallery extends React.Component {
     render() {
         return(
             <div className="img-gallery">
-                <img className="featured-image" src='./sample.jpeg'></img>
+                <img className="featured-image" src={this.props.product ?   this.props.product.photos[0].url:'./sample.jpeg'}></img>
                 <h1 className="expand-button">+</h1>
             </div>
-
         )
     }
 }

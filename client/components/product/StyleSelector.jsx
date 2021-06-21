@@ -11,6 +11,7 @@ class StyleSelector extends React.Component {
         [...document.getElementsByClassName("style-div")].forEach( (div, idx) => {
             if (event.target.className.split(" ")[1] === idx + "") {
                 div.childNodes[1].className = "selected";
+                this.props.switchStyle(idx);
             } else {
                 div.childNodes[1].className = "";
             }
@@ -19,16 +20,16 @@ class StyleSelector extends React.Component {
     }
 
     renderAvailableStyles() {
-        return this.props.styles.map((element, idx) => {
-            return (
-                <div key={idx} idx={idx} className="style-div" onClick={(e) => {this.handleClick(e)}}>
-                    <img key={idx} idx={idx} className={"dot " + idx} src='./sample.jpeg'></img>
-                    <span className={idx == 0 ? "selected":""}></span>
-                </div>
-            )
-
-        });
-
+        if (this.props.styles) {
+            return this.props.styles.map((element, idx) => {
+                return (
+                    <div key={idx} idx={idx} className="style-div" onClick={(e) => {this.handleClick(e)}}>
+                        <img key={idx} idx={idx} className={"dot " + idx} src={element.photos[0].url || "./sample.jpeg"}></img>
+                        <span className={idx == 0 ? "selected":""}></span>
+                    </div>
+                )
+            });
+        }
     }
 
     render() {
