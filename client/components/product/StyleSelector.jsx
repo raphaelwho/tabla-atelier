@@ -37,9 +37,7 @@ class StyleSelector extends React.Component {
                 <CText text="Style >" style="bold"/>
                 <div className="stylesgrid">
                     {this.renderAvailableStyles()}
-                    
                 </div>
-
             </div>
         )
     }
