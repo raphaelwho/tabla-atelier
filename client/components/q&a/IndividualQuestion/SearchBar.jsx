@@ -6,7 +6,7 @@ var SearchBar = (props) => {
   return (
     <div>
       <input id="search" type="text" placeholder="Have A Question? Search For Answers..." className="default"></input>
-      <button id="searchbutton" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+      <button id="searchbutton" type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
     </div>
   );
 }
