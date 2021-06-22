@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { GrCheckmark } from "react-icons/gr";
 
@@ -28,7 +29,7 @@ export default function Comparing(props) {
     <div>
     {Object.keys(Comparing_table).map(key=>{
         return (
-          <div style={{display: 'grid',
+          <div key={key} style={{display: 'grid',
             gridTemplateColumns: '30% 40% 30%'}}>
           <div>{Comparing_table[key]['left']|| 'Null'} </div>
             <div style={{textAlign:'center'}}> {key} </div>

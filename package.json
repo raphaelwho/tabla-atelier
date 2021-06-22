@@ -46,6 +46,9 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "css-loader": "^5.2.6",
+    "eslint": "^7.28.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.24.0",
     "msw": "^0.29.0",
     "regenerator-runtime": "^0.13.7",
     "style-loader": "^2.0.0",
@@ -53,3 +56,4 @@
     "webpack-cli": "^4.7.0"
   }
 }
+

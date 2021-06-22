@@ -22,6 +22,7 @@ app.post('/related', (req, res) => {
   })
   .catch(function (error) {
     console.log(error);
+    res.end()
   });
 })
 app.post('/card', (req, res) => {
@@ -40,6 +41,7 @@ app.post('/card', (req, res) => {
   })
   .catch(function (error) {
   console.log(error);
+  res.end()
   });
 
 })
@@ -57,6 +59,7 @@ app.post('/cardimage', (req, res) => {
   })
   .catch(function (error) {
   console.log(error);
+  res.end()
   });
 
 })
@@ -75,10 +78,31 @@ app.post('/review/meta', (req, res) => {
   })
   .catch(function (error) {
   console.log(error);
+  res.end()
   });
 
 })
+<<<<<<< HEAD
+app.post('/reviews', (req, res) => {
+  var config = {
+    method: 'GET',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${req.body.id}`,
+    headers: {
+      'Authorization': Token
+    }
+  };
+  axios(config)
+  .then(function (response) {
+    res.send(response.data)
+  })
+  .catch(function (error) {
+  console.log(error);
+  res.end()
+  });
+});
+=======
 
+>>>>>>> main
 
 
 app.listen(port, () => {
