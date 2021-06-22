@@ -40,6 +40,11 @@ export default class Related extends Component {
         items: data2.data,
       });
     }));
+
+
+
+
+
   }
   removeMyOutfit(id) {
     const myoutfits = [...this.state.myoutfits.filter((item) => item !== id)];

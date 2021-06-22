@@ -63,6 +63,7 @@ app.post('/cardimage', (req, res) => {
   });
 
 })
+
 app.post('/review/meta', (req, res) => {
   let config = {
   method: 'get',
@@ -81,6 +82,7 @@ app.post('/review/meta', (req, res) => {
   });
 
 })
+<<<<<<< HEAD
 app.post('/reviews', (req, res) => {
   var config = {
     method: 'GET',
@@ -98,6 +100,9 @@ app.post('/reviews', (req, res) => {
   res.end()
   });
 });
+=======
+
+>>>>>>> main
 
 
 app.listen(port, () => {

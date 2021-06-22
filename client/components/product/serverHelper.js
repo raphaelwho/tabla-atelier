@@ -1,5 +1,6 @@
 var axios = require('axios');
 
+// Returns the active product
 const getActiveProductInfo = function() {
     return new Promise((res, rej) => {
         axios.get('http://localhost:3000/active-product')
@@ -12,6 +13,7 @@ const getActiveProductInfo = function() {
     });
 }
 
+// Returns the relevant styles
 const getActiveProductStyles = function () {
     return new Promise((res, rej) => {
         axios.get('http://localhost:3000/active-product-styles')
