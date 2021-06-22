@@ -15,7 +15,7 @@ var Stars = function (props) {
   if (nearestQuarter - Math.trunc(nearestQuarter) === 0.25) {
     ratingPercentage = ratingPercentage + 2.5;
   } else if (nearestQuarter - Math.trunc(nearestQuarter) === 0.75) {
-    // log('reducing');
+
     ratingPercentage = ratingPercentage - 2.5;
   }
 
@@ -29,9 +29,9 @@ var Stars = function (props) {
   return (
     <span className="stars-container">
       <span className="stars">
-        &#9734;&#9734;&#9734;&#9734;&#9734;
+        <span className="star1">&#9734;</span><span className="star2">&#9734;</span><span className="star3">&#9734;</span><span className="star4">&#9734;</span><span className="star5">&#9734;</span>
       </span>
-      <span className="starsoverlap" style={ratingStyle}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span className="starsoverlap" style={ratingStyle}><span className="star1">&#9733;</span><span className="star2">&#9733;</span><span className="star3">&#9733;</span><span className="star4">&#9733;</span><span className="star5">&#9733;</span></span>
     </span>
   );
 }

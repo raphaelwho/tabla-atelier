@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import Card from './Card.jsx';
 import Swiper from 'react-id-swiper';
-import 'swiper/css/swiper.css';
+//import 'swiper/css/swiper.css';
 import './button.css'
 import {FaRegStar } from 'react-icons/fa';
 import {CgCloseO } from 'react-icons/cg';
