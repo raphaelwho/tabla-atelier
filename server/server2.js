@@ -60,6 +60,7 @@ app.post('/cardimage', (req, res) => {
   });
 
 })
+
 app.post('/review/meta', (req, res) => {
   let config = {
   method: 'get',
@@ -77,22 +78,7 @@ app.post('/review/meta', (req, res) => {
   });
 
 })
-app.post('/reviews', (req, res) => {
-  var config = {
-    method: 'GET',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${req.body.id}`,
-    headers: {
-      'Authorization': Token
-    }
-  };
-  axios(config)
-  .then(function (response) {
-    res.send(response.data)
-  })
-  .catch(function (error) {
-  console.log(error);
-  });
-});
+
 
 
 app.listen(port, () => {
