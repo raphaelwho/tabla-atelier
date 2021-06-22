@@ -49,7 +49,7 @@ var reviewCharacteristics = {
 }
 
 var ReviewList = function (props) {
-    console.log(props);
+
     return (
       <div className="review-list-and-sorting">
         <div className="review-sorting">
@@ -286,9 +286,9 @@ var ReviewList = function (props) {
               }
             </div>
             <label htmlFor="review-summary">Review Summary</label>
-            <input type="text" id="review-summary" name="review-summary" maxLength="60" placeholder="Example: Best purchase ever!" />
+            <input type="text" id="review-summary" name="reviewSummary" maxLength="60" placeholder="Example: Best purchase ever!" />
             <label htmlFor="review-body">Review Body *</label>
-            <textarea id="review-body" name="review-body" required minLength="50" maxLength="1000" placeholder="Why did you like this product or not?" onChange={props.handleReviewBodyText} />
+            <textarea id="review-body" name="reviewBody" required minLength="50" maxLength="1000" placeholder="Why did you like this product or not?" onChange={props.handleReviewBodyText} />
             {(props.reviewBodyTextCharacterCount) < 50 &&
             <div><h4>Minimum required characters left: [{50 - props.reviewBodyTextCharacterCount}]</h4></div>
             }
@@ -297,13 +297,45 @@ var ReviewList = function (props) {
             }
 
             <label htmlFor="imageFile">Upload your photos</label>
-	            <input type="file" id="image-file-1" accept="image/*" onChange={props.handleFiles} />
+              <input type="file" id="image-file-1" accept="image/*" onChange={props.handleFiles} />
+              <div id="image-file-1-thumb"></div>
 
-            <div id="image-file-1-thumb"></div>
-            <div id="image-file-2-thumb"></div>
-            <div id="image-file-3-thumb"></div>
-            <div id="image-file-4-thumb"></div>
-            <div id="image-file-5-thumb"></div>
+	            {(props.numberImages >=1) &&
+              <div>
+                <input type="file" id="image-file-2" accept="image/*" onChange={props.handleFiles} />
+                <div id="image-file-2-thumb"></div>
+              </div>
+              }
+
+              {(props.numberImages >= 2) &&
+              <div>
+                <input type="file" id="image-file-3" accept="image/*" onChange={props.handleFiles} />
+                <div id="image-file-3-thumb"></div>
+              </div>
+              }
+
+              {(props.numberImages >= 3) &&
+              <div>
+                <input type="file" id="image-file-4" accept="image/*" onChange={props.handleFiles} />
+                <div id="image-file-4-thumb"></div>
+              </div>
+              }
+
+              {(props.numberImages >= 4) &&
+              <div>
+                <input type="file" id="image-file-5" accept="image/*" onChange={props.handleFiles} />
+                <div id="image-file-5-thumb"></div>
+              </div>
+              }
+
+            <label htmlFor="nickname">Review Summary</label>
+            <input type="text" id="nickname" name="nickname" maxLength="60" placeholder="Example: jackson11!" />
+            <h4>For privacy reasons, do not use your full name or email address.</h4>
+
+            <label htmlFor="nickname">Review Summary</label>
+            <input type="email" id="email" name="email" maxLength="60" placeholder="Example: jackson11@email.com" />
+            <h4>For authentication reasons, you will not be emailed.</h4>
+
             {(props.addReviewRating > 0) &&
             <input type="submit" value="Submit" />
             }

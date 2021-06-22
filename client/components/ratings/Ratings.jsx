@@ -25,7 +25,13 @@ class Ratings extends React.Component {
       characteristicsQuality: 0,
       characteristicsLength: 0,
       characteristicsFit: 0,
-      reviewBodyTextCharacterCount: 0
+      reviewBodyTextCharacterCount: 0,
+      numberImages: 0,
+      imageFile1URL: '',
+      imageFile2URL: '',
+      imageFile3URL: '',
+      imageFile4URL: '',
+      imageFile5URL: ''
     };
     this.sortReviews = this.sortReviews.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
@@ -37,6 +43,7 @@ class Ratings extends React.Component {
     this.handleRadioCharacteristics = this.handleRadioCharacteristics.bind(this);
     this.handleReviewBodyText = this.handleReviewBodyText.bind(this);
     this.handleFiles = this.handleFiles.bind(this);
+    this.updateImageState = this.updateImageState.bind(this);
 
   }
 
@@ -62,8 +69,59 @@ class Ratings extends React.Component {
   }
 
   addReviewHandleSubmit(event) {
+    this.addReviewToggleModal();
     event.preventDefault();
     console.log(event);
+    var reviewForm = {};
+    reviewForm['product_id'] = this.props.id;
+    reviewForm['rating'] = this.state.addReviewRating;
+    reviewForm['summary'] = event.target.elements.reviewSummary.value;
+    reviewForm['body'] = event.target.elements.reviewBody.value;
+
+    if (event.target.elements.recommend.value === 'yes') {
+      reviewForm['recommend'] = true;
+    } else {
+      reviewForm['recommend'] = false;
+    }
+
+    reviewForm['name'] = event.target.elements.nickname.value;
+    reviewForm['email'] = event.target.elements.email.value;
+
+    var photos = [];
+    for (var photo = 1; photo <= this.state.numberImages; photo++) {
+      var photoObject = {};
+      photoObject['id'] = photo;
+      photoObject['url'] = this.state[`imageFile${photo}URL`];
+      photos.push(photoObject);
+    }
+
+    reviewForm['photos'] = photos;
+
+    var characteristicsObj = {};
+    for (var key in this.state.characteristics) {
+      var name = key[0].toLowerCase() + key.slice(1);
+      characteristicsObj[this.state.characteristics[key].id] = Number(event.target.elements[name].value);
+    }
+
+    reviewForm['characteristics'] = characteristicsObj;
+
+    console.log(reviewForm);
+
+    var sendReviewForm = JSON.stringify(reviewForm);
+
+    var successfulAddReview = () => {
+      console.log('Review Posted to server successfully.')
+    };
+
+    $.ajax({
+      type: "POST",
+      url: 'http://127.0.0.1:3000/addreview',
+      processData: false,
+      contentType: 'application/json',
+      data: sendReviewForm,
+      success: successfulAddReview,
+      dataType: 'json'
+    });
   }
 
   sortReviews(reviewsArray, sortType = this.state.sortType) {
@@ -133,7 +191,7 @@ class Ratings extends React.Component {
   }
 
   handleRadioCharacteristics(event) {
-    console.log('radio buttons', event);
+
     var name = `characteristics${event.target.name[0].toUpperCase()}${event.target.name.slice(1)}`;
     var characteristic = {};
     characteristic[name] = Number(event.target.value);
@@ -141,13 +199,13 @@ class Ratings extends React.Component {
   }
 
   handleReviewBodyText(event) {
-    console.log('body text:', event);
+
     this.setState({reviewBodyTextCharacterCount: event.target.textLength});
   }
 
   handleFiles(event) {
     var thumbnail = document.getElementById("image-file-1-thumb");
-    console.log(event);
+
     if (!event.target.files.length) {
       thumbnail.innerHTML = "<p>No files selected!</p>";
     } else {
@@ -156,46 +214,57 @@ class Ratings extends React.Component {
       var multipart = new FormData();
       multipart.append('image', reviewImage, event.target.files[0].name);
 
-      var postThumbs = function () {
-
-        var thumbnails = document.getElementById(`${event.target.id}-thumb`);
-        thumbnails.innerHTML = "";
-        const list = document.createElement("ul");
-        thumbnails.appendChild(list);
-        for (let i = 0; i < event.target.files.length; i++) {
-          const li = document.createElement("li");
-          list.appendChild(li);
-
-          const img = document.createElement("img");
-          img.src = URL.createObjectURL(event.target.files[i]);
-          img.height = 60;
-          img.onload = function() {
-            URL.revokeObjectURL(this.src);
-          }
-          li.appendChild(img);
-          const info = document.createElement("span");
-          info.innerHTML = event.target.files[i].name + ": " + event.target.files[i].size + " bytes";
-          li.appendChild(info);
-        }
-      };
-
       $.ajax({
         url: 'http://localhost:3000/uploadreviewimage',
         type: 'POST',
         data: multipart,
-        success: postThumbs,
+        success: this.updateImageState,
         contentType: false,
         processData: false
-      });
+      })
+        .done(function () {
+          var thumbnails = document.getElementById(`${event.target.id}-thumb`);
+          thumbnails.innerHTML = "";
+          const list = document.createElement("ul");
+          thumbnails.appendChild(list);
+          for (let i = 0; i < event.target.files.length; i++) {
+            const li = document.createElement("li");
+            list.appendChild(li);
 
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(event.target.files[i]);
+            img.height = 60;
+            img.onload = function() {
+              URL.revokeObjectURL(this.src);
+            }
+            li.appendChild(img);
+            const info = document.createElement("span");
+            info.innerHTML = event.target.files[i].name + ": " + event.target.files[i].size + " bytes";
+            li.appendChild(info);
+          }
+        })
+        .fail(function () {
+          console.log('AJAX POST request for add review image has failed.');
+        });
     }
+  }
+
+  updateImageState(response) {
+
+    var currentImageNumber = this.state.numberImages + 1;
+    var updateImageData = {numberImages: currentImageNumber};
+    updateImageData[`imageFile${currentImageNumber}URL`] = response.postedURL;
+
+    this.setState(updateImageData);
+
+
   }
 
   render() {
     return (
       <div className="reviews">
         <ReviewGraphics />
-        <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} productName={this.state.productName} addReviewRating={this.state.addReviewRating} changeAddReviewRating={this.changeAddReviewRating} addReviewToggleModal={this.addReviewToggleModal} addReviewHandleSubmit={this.addReviewHandleSubmit} handleRadioCharacteristics={this.handleRadioCharacteristics} characteristicsSize={this.state.characteristicsSize} characteristicsWidth={this.state.characteristicsWidth} characteristicsComfort={this.state.characteristicsComfort} characteristicsQuality={this.state.characteristicsQuality} characteristicsLength={this.state.characteristicsLength} characteristicsFit={this.state.characteristicsFit} characteristics={this.state.characteristics} handleRadioCharacteristics={this.handleRadioCharacteristics} handleReviewBodyText={this.handleReviewBodyText} reviewBodyTextCharacterCount={this.state.reviewBodyTextCharacterCount} handleFiles={this.handleFiles} />
+        <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} productName={this.state.productName} addReviewRating={this.state.addReviewRating} changeAddReviewRating={this.changeAddReviewRating} addReviewToggleModal={this.addReviewToggleModal} addReviewHandleSubmit={this.addReviewHandleSubmit} handleRadioCharacteristics={this.handleRadioCharacteristics} characteristicsSize={this.state.characteristicsSize} characteristicsWidth={this.state.characteristicsWidth} characteristicsComfort={this.state.characteristicsComfort} characteristicsQuality={this.state.characteristicsQuality} characteristicsLength={this.state.characteristicsLength} characteristicsFit={this.state.characteristicsFit} characteristics={this.state.characteristics} handleRadioCharacteristics={this.handleRadioCharacteristics} handleReviewBodyText={this.handleReviewBodyText} reviewBodyTextCharacterCount={this.state.reviewBodyTextCharacterCount} handleFiles={this.handleFiles} numberImages={this.state.numberImages} />
       </div>
     )
   }
