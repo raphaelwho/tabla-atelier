@@ -43,11 +43,10 @@ class AddToCart extends React.Component {
         if (this.state.selectedSizeIdx) {
             var idx = 0;
             for (let [k, v] of Object.entries(this.props.product.skus)) {
-                log("IDX:", idx, this.state.selectedSizeIdx)
                 if (this.state.selectedSizeIdx === idx + "") {
                     log("VQuant", v.quantity)
                     return v.quantity;
-                } 
+                }
                 idx++;
             }
         } else {
@@ -70,7 +69,7 @@ class AddToCart extends React.Component {
                     <Dropdown initValue={this.state.selectedSize ? "1":""} options={this.getQuantity() > 15 ? Array.from(Array(15 + 1).keys()).slice(1):Array.from(Array(this.getQuantity()+1).keys()).slice(1)}/>
                 </div>
 
-                
+
                 <h1> </h1> {/* Temp Spacer */}
                 <div className="size-flexgrid">
                     <CButton click={() => {log("Button clicked")}} Text={'ADD TO CART'} type={'add'}/>
