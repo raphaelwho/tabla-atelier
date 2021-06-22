@@ -181,7 +181,7 @@ class Ratings extends React.Component {
     var idData = JSON.stringify({id: this.props.id});
 
     $.ajax({
-      url: 'http://localhost:3000/reviews',
+      url: 'http://localhost:3000/reviewsproductmeta',
       type: 'POST',
       data: idData,
       success: successfulFetch,
