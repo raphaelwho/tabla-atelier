@@ -1,3 +1,3 @@
-const Git = "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";
+const Git = "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";
 
 module.exports.Git = Git;

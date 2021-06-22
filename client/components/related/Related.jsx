@@ -41,28 +41,7 @@ export default class Related extends Component {
       })
     }));
 
-    // $.ajax({'http://localhost:3000/card',
-    //   url: 'http://localhost:3000/card',
-    //   data: {id:this.props.id},
-    //   method: "POST",
-    //   success: (res)=>{
-    //     this.setState({
-    //       cur: res
-    //     })
-    //   }
-    // })
 
-    // $.ajax({
-    //   url: 'http://localhost:3000/related',
-    //   data: {id:this.props.id},
-    //   method: "POST",
-    //   success: (res)=>{
-    //     this.setState({
-    //       isLoading : false,
-    //       items: res
-    //     })
-    //   }
-    // })
 
 
 
