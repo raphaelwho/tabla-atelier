@@ -142,7 +142,7 @@ app.post('/uploadreviewimage', upload.single('image'), function (req, res) {
 
 });
 
-app.post('/reviews', (req, res) => {
+app.post('/reviewsproductmeta', (req, res) => {
 
   var configGetReviewsById = {
     method: 'GET',
