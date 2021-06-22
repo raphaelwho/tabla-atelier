@@ -5,11 +5,7 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack --mode development --watch",
-<<<<<<< HEAD
     "start": "nodemon server/server2.js",
-=======
-    "start": "nodemon server/server3.js",
->>>>>>> main
     "test": "jest --coverage",
     "trial": "nodemon server/trialServer.js"
   },
@@ -60,3 +56,4 @@
     "webpack-cli": "^4.7.0"
   }
 }
+

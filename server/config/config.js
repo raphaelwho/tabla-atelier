@@ -1,3 +1,3 @@
-const Token = "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";
+var Git= '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';
 
-module.exports.Token = Token;
+module.exports.Git =Git
