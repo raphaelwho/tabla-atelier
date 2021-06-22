@@ -2,9 +2,5 @@ node_modules
 /client/dist/bundle.js
 /server/server.config.js
 /coverage
-<<<<<<< HEAD
-server/config/config.js
-=======
 /server/config/config.js
->>>>>>> main
 
