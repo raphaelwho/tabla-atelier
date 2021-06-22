@@ -26,9 +26,9 @@ class ProductInfo extends React.Component {
         return (
             <div className="productinfo">
                 {this.getProductRating()}
-                <CText text="CATEGORY" style="thin" color="grey"/>
-                <CText text="EXPANDED PRODUCT NAME" style="bold" size={2}/>
-                <CText text="$365" style="thin" size={0.75} color="grey"/>
+                <CText text={this.props.product ?  this.props.product.category.toUpperCase():"CATEGORY"} style="thin" color="grey"/>
+                <CText text={this.props.product ?  this.props.product.name:"NAME"} style="bold" size={2}/>
+                <CText text={this.props.product ?  ("$" + this.props.product.default_price):"$0"} style="thin" size={0.75} color="grey"/>
             </div>
         )
     }
