@@ -16,7 +16,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: 22128,
+      id: 22122,
     };
   }
 
@@ -24,9 +24,9 @@ class App extends React.Component {
 
     return (
     <div>
-      <Product />
-      <Related id={this.state.id}/>
-      {/* <Ratings id={this.state.id}/> */}
+{/*       <Product />
+      <Related id={this.state.id}/> */}
+      <Ratings id={this.state.id}/>
     </div>);
 
 

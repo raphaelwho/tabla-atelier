@@ -31,7 +31,14 @@ class Ratings extends React.Component {
       imageFile2URL: '',
       imageFile3URL: '',
       imageFile4URL: '',
-      imageFile5URL: ''
+      imageFile5URL: '',
+      sortText: '',
+      starFilterOn: false,
+      display5Star: true,
+      display4Star: true,
+      display3Star: true,
+      display2Star: true,
+      display1Star: true
     };
     this.sortReviews = this.sortReviews.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
@@ -44,6 +51,9 @@ class Ratings extends React.Component {
     this.handleReviewBodyText = this.handleReviewBodyText.bind(this);
     this.handleFiles = this.handleFiles.bind(this);
     this.updateImageState = this.updateImageState.bind(this);
+    this.handleHelpful = this.handleHelpful.bind(this);
+    this.handleReport = this.handleReport.bind(this);
+    this.handleSearchReviews = this.handleSearchReviews.bind(this);
 
   }
 
@@ -260,11 +270,64 @@ class Ratings extends React.Component {
 
   }
 
+  handleHelpful(event) {
+    event.preventDefault();
+    console.log(event);
+    var item = event.target.classList[1] + 'helpful';
+    let helpful = localStorage.getItem(item);
+
+
+    if (helpful !== null) {
+
+      var successfulAddHelpful = () => {
+        localStorage.setItem(item, 'helpful');
+      }
+
+      $.ajax({
+        type: "POST",
+        url: 'http://127.0.0.1:3000/addhelpful',
+        processData: false,
+        contentType: 'application/json',
+        data: JSON.stringify({review_id: event.target.classList[1]}),
+        success: successfulAddHelpful,
+        dataType: 'json'
+      });
+    }
+  }
+
+  handleReport(event) {
+    event.preventDefault();
+    var item = event.target.classList[1] + 'report';
+    let helpful = localStorage.getItem(item);
+
+
+    if (helpful !== null) {
+
+      var successfulAddReport = () => {
+        localStorage.setItem(item, 'report');
+      }
+
+      $.ajax({
+        type: "POST",
+        url: 'http://127.0.0.1:3000/addreport',
+        processData: false,
+        contentType: 'application/json',
+        data: JSON.stringify({review_id: event.target.classList[1]}),
+        success: successfulAddReport,
+        dataType: 'json'
+      });
+    }
+  }
+
+  handleSearchReviews(event) {
+    this.setState({sortText: event.target.value});
+  }
+
   render() {
     return (
       <div className="reviews">
         <ReviewGraphics />
-        <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} productName={this.state.productName} addReviewRating={this.state.addReviewRating} changeAddReviewRating={this.changeAddReviewRating} addReviewToggleModal={this.addReviewToggleModal} addReviewHandleSubmit={this.addReviewHandleSubmit} handleRadioCharacteristics={this.handleRadioCharacteristics} characteristicsSize={this.state.characteristicsSize} characteristicsWidth={this.state.characteristicsWidth} characteristicsComfort={this.state.characteristicsComfort} characteristicsQuality={this.state.characteristicsQuality} characteristicsLength={this.state.characteristicsLength} characteristicsFit={this.state.characteristicsFit} characteristics={this.state.characteristics} handleRadioCharacteristics={this.handleRadioCharacteristics} handleReviewBodyText={this.handleReviewBodyText} reviewBodyTextCharacterCount={this.state.reviewBodyTextCharacterCount} handleFiles={this.handleFiles} numberImages={this.state.numberImages} />
+        <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} productName={this.state.productName} addReviewRating={this.state.addReviewRating} changeAddReviewRating={this.changeAddReviewRating} addReviewToggleModal={this.addReviewToggleModal} addReviewHandleSubmit={this.addReviewHandleSubmit} handleRadioCharacteristics={this.handleRadioCharacteristics} characteristicsSize={this.state.characteristicsSize} characteristicsWidth={this.state.characteristicsWidth} characteristicsComfort={this.state.characteristicsComfort} characteristicsQuality={this.state.characteristicsQuality} characteristicsLength={this.state.characteristicsLength} characteristicsFit={this.state.characteristicsFit} characteristics={this.state.characteristics} handleRadioCharacteristics={this.handleRadioCharacteristics} handleReviewBodyText={this.handleReviewBodyText} reviewBodyTextCharacterCount={this.state.reviewBodyTextCharacterCount} handleFiles={this.handleFiles} numberImages={this.state.numberImages} handleHelpful={this.handleHelpful} handleReport={this.handleReport} sortText={this.state.sortText} display5Star={this.state.display5Star} display4Star={this.state.display4Star} display3Star={this.state.display3Star} display2Star={this.state.display2Star} display1Star={this.state.display1Star} handleSearchReviews={this.handleSearchReviews} />
       </div>
     )
   }
