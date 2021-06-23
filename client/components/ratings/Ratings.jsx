@@ -118,20 +118,23 @@ class Ratings extends React.Component {
     console.log(reviewForm);
 
     var sendReviewForm = JSON.stringify(reviewForm);
+    var item = reviewForm['product_id'].toString() + 'review';
 
     var successfulAddReview = () => {
-      console.log('Review Posted to server successfully.')
+      localStorage.setItem(item, 'reviewed');
     };
 
-    $.ajax({
-      type: "POST",
-      url: 'http://127.0.0.1:3000/addreview',
-      processData: false,
-      contentType: 'application/json',
-      data: sendReviewForm,
-      success: successfulAddReview,
-      dataType: 'json'
-    });
+    if (localStorage.getItem(item) === null) {
+      $.ajax({
+        type: "POST",
+        url: 'http://127.0.0.1:3000/addreview',
+        processData: false,
+        contentType: 'application/json',
+        data: sendReviewForm,
+        success: successfulAddReview,
+        dataType: 'json'
+      });
+    }
   }
 
   sortReviews(reviewsArray, sortType = this.state.sortType) {
@@ -333,9 +336,35 @@ class Ratings extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchReviews(this.state.id);
+    this.fetchReviews(this.props.id);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.id !== prevProps.id) {
+      this.setState({productName: '',
+      reviews: [],
+      addReviewRating: 0,
+      ratings: {},
+      recommend: {},
+      characteristics: {},
+      characteristicsSize: 0,
+      characteristicsWidth: 0,
+      characteristicsComfort: 0,
+      characteristicsQuality: 0,
+      characteristicsLength: 0,
+      characteristicsFit: 0,
+      reviewBodyTextCharacterCount: 0,
+      numberImages: 0,
+      imageFile1URL: '',
+      imageFile2URL: '',
+      imageFile3URL: '',
+      imageFile4URL: '',
+      imageFile5URL: ''
+    }, () => {
+      this.fetchReviews(this.props.id);
+    });
+    }
+  }
 }
 
 export default Ratings;
