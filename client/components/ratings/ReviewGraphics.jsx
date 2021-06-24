@@ -21,6 +21,7 @@ var ReviewGraphics = function (props) {
     stars.totalRatings= totalRatings;
     stars.numberRatings = numberRatings;
     stars.averageRatings = totalRatings / numberRatings;
+    console.log(stars);
     return stars;
   };
 
@@ -45,8 +46,8 @@ var ReviewGraphics = function (props) {
     <div className="review-graphics">
       <div className="star-average">
         <h3>Ratings &#38; Reviews</h3>
-        <h4>{ratingsStats.averageRating}</h4>
-        <Stars rating={ratingsStats.averageRating} />
+        <h4>{ratingsStats.averageRatings}</h4>
+        <Stars rating={ratingsStats.averageRatings} />
       </div>
       <div className="bars-sliders">
         <div className="review-bars">
