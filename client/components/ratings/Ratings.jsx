@@ -16,8 +16,8 @@ class Ratings extends React.Component {
       sortType: 'relevance', //options are relevance, date, helpfulness; default is relevance
       reviewListEnd: 1,
       addReviewRating: 0,
+      recommended: {},
       ratings: {},
-      recommend: {},
       characteristics: {},
       characteristicsSize: 0,
       characteristicsWidth: 0,
@@ -54,6 +54,8 @@ class Ratings extends React.Component {
     this.handleHelpful = this.handleHelpful.bind(this);
     this.handleReport = this.handleReport.bind(this);
     this.handleSearchReviews = this.handleSearchReviews.bind(this);
+    this.handleStarFilterOn = this.handleStarFilterOn.bind(this);
+    this.handleStarFilterOff = this.handleStarFilterOff.bind(this);
 
   }
 
@@ -189,7 +191,7 @@ class Ratings extends React.Component {
   fetchReviews(id) {
     var successfulFetch = (response) => {
       var fetchAndSort = this.sortReviews(response.results);
-      this.setState({reviews: fetchAndSort, productName: response.name, ratings: response.ratings, recommend: response.recommend, characteristics: response.characteristics});
+      this.setState({reviews: fetchAndSort, productName: response.name, ratings: response.ratings, recommended: response.recommended, characteristics: response.characteristics});
     };
     var idData = JSON.stringify({id: this.props.id});
 
@@ -326,10 +328,28 @@ class Ratings extends React.Component {
     this.setState({sortText: event.target.value});
   }
 
+  handleStarFilterOn(event) {
+    event.preventDefault();
+    if (this.state.starFilterOn === false) {
+      var filter = {starFilterOn: true, display5Star: false, display4Star: false, display3Star: false, display2Star: false, display1Star: false};
+      filter[event.target.id] = true;
+      this.setState(filter);
+    } else {
+      var filter = {};
+      filter[event.target.id] = true;
+      this.setState(filter);
+    }
+  }
+
+  handleStarFilterOff(event) {
+    event.preventDefault();
+    this.setState({starFilterOn: false, display5Star: true, display4Star: true, display3Star: true, display2Star: true, display1Star: true});
+  }
+
   render() {
     return (
       <div className="reviews">
-        <ReviewGraphics />
+        <ReviewGraphics ratings={this.state.ratings} recommended={this.state.recommended} characteristics={this.state.characteristics} display5Star={this.state.display5Star} display4Star={this.state.display4Star} display3Star={this.state.display3Star} display2Star={this.state.display2Star} display1Star={this.state.display1Star} starFilterOn={this.state.starFilterOn} handleStarFilterOn={this.handleStarFilterOn} handleStarFilterOff={this.handleStarFilterOff} />
         <ReviewList reviews={this.state.reviews} sortType={this.state.sortType} reviewListEnd={this.state.reviewListEnd} moreReviews={this.moreReviews} changeSort={this.changeSort} productName={this.state.productName} addReviewRating={this.state.addReviewRating} changeAddReviewRating={this.changeAddReviewRating} addReviewToggleModal={this.addReviewToggleModal} addReviewHandleSubmit={this.addReviewHandleSubmit} handleRadioCharacteristics={this.handleRadioCharacteristics} characteristicsSize={this.state.characteristicsSize} characteristicsWidth={this.state.characteristicsWidth} characteristicsComfort={this.state.characteristicsComfort} characteristicsQuality={this.state.characteristicsQuality} characteristicsLength={this.state.characteristicsLength} characteristicsFit={this.state.characteristicsFit} characteristics={this.state.characteristics} handleRadioCharacteristics={this.handleRadioCharacteristics} handleReviewBodyText={this.handleReviewBodyText} reviewBodyTextCharacterCount={this.state.reviewBodyTextCharacterCount} handleFiles={this.handleFiles} numberImages={this.state.numberImages} handleHelpful={this.handleHelpful} handleReport={this.handleReport} sortText={this.state.sortText} display5Star={this.state.display5Star} display4Star={this.state.display4Star} display3Star={this.state.display3Star} display2Star={this.state.display2Star} display1Star={this.state.display1Star} handleSearchReviews={this.handleSearchReviews} />
       </div>
     )
@@ -344,7 +364,6 @@ class Ratings extends React.Component {
       this.setState({productName: '',
       reviews: [],
       addReviewRating: 0,
-      ratings: {},
       recommend: {},
       characteristics: {},
       characteristicsSize: 0,
